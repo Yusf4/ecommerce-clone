@@ -21,4 +21,18 @@ const ProductPage=()=>{
         fetchProduct();
 
     },[id]);
+
+    if (!product) return <div>Loading...</div>;
+    return (
+        <div>
+            <Header/>
+            <main>
+                <h1>{product.name}</h1>
+                <img src={product.imageUrl} alt={product.name}/>
+                <p>${product.price.toFixed(2)}</p>
+                <p>{product.description}</p>
+            </main>
+            <Footer />
+        </div>
+    )
 }
