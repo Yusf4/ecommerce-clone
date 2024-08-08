@@ -18,7 +18,7 @@ const ProductPage=()=>{
                 console.error('Error fetching product:',error);
             }
         };
-        fethcProduct();
+        fetchProduct();
 
     },[id]);
 }
