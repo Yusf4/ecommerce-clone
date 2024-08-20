@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'price' => 29.99,
                 'stock' => 100,
                 'image' => NULL,
-                'category_id' => 1, // Make sure this category exists
+                'category_id' => 1, 
                 'created_at' => now(),
                 'updated_at' => now(),
 
