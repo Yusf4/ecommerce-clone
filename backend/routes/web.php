@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MyauthController;
+use App\Http\Controllers\ContactController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,8 +19,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/',[HomeController::class,'index']);
+Route::get('/',[ProductController::class,'index']);
 Route::get('/contact',[ContactController::class,'index']);
-Route::get('/login',[AuthController::class,'showLoginForm']);
-Route::get('/register',[AuthController::class,'showRegisterForm'])->name('register');
+Route::get('/login',[MyauthController::class,'showLoginForm']);
+Route::get('/register',[MyauthController::class,'showRegisterForm'])->name('register');
 require __DIR__.'/auth.php';
