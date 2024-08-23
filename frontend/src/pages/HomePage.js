@@ -9,8 +9,8 @@ const HomePage=()=>{
     useEffect(()=>{
     const fetchProducts=async()=>{
         try{
-            const response =await axios.get('/api/products');
-            setProducts(response.data);
+            const response =await axios.get('http://localhost:8000/api/products');
+                setProducts(response.data);
         }
         catch(error){
             console.error('Error fetching products:',error);
@@ -31,7 +31,7 @@ const HomePage=()=>{
                 <div className="product-list">
                 {products.map(product=>(
                     <ProductCard key={product.id} product={product}/>
-                ))};
+                ))}
                 </div>
                 </section>
             </main>
