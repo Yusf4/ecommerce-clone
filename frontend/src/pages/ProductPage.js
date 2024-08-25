@@ -28,12 +28,12 @@ const ProductPage=()=>{
             <Header/>
             <main>
                 <h1>{product.name}</h1>
-                <img src="https://cdn.pixabay.com/photo/2023/07/03/12/49/hoi-an-8104135_640.jpg" alt={product.name}/>
+               
 
                 <img src={product.imageUrl} alt={product.name}/>
                 <p>${product.price.toFixed(2)}</p>
                 <p>{product.description}</p>
-                 <p>{product.imageUrl}</p>
+                 
             </main>
             <Footer />
         </div>
