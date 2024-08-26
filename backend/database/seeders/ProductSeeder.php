@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Description for product 1',
                 'price' => 29.99,
                 'stock' => 100,
-                'image' => '/home/youssef/ecommerce-clone/backend/resources/images/watches1.jpg',
+                'image' => 'images/watches1.jpg',
                 'category_id' => 1, 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -32,7 +32,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Description for product 2',
                 'price' => 49.99,
                 'stock' => 50,
-                'image' => NULL,
+                'image' => 'images/watches2.jpg',
                 'category_id' => 2, // Make sure this category exists
                 'created_at' => now(),
                 'updated_at' => now(),
