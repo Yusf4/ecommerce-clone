@@ -7,9 +7,11 @@ import Addbutton from '../components/Addbutton';
 import { BagContext } from '../components/contexts/BagContext';
 const ProductPage=()=>{
     const{bag,addToBag}=useContext(BagContext);
-
+     
     const { id }=useParams();
     const[product, setProduct]=useState(null);
+    console.log("bag:" ,bag);
+     console.log("addtoBag",addToBag)
     useEffect(()=>{
         const fetchProduct=async()=>{
             try{

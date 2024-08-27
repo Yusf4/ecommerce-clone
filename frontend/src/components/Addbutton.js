@@ -1,4 +1,5 @@
 import React from "react";
+
 const Addbutton=({product,addToBag})=>{
     return (
         <div>

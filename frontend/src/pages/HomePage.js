@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { BagContext } from '../components/contexts/BagContext';
+
 import ProductCard from '../components/ProductCard';
 
 const HomePage=()=>{
