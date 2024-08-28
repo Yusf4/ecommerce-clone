@@ -6,17 +6,21 @@ import Footer from '../components/Footer';
 import Addbutton from '../components/Addbutton';
 import { BagContext } from '../components/contexts/BagContext';
 const ProductPage=()=>{
+    const HOST=process.env.REACT_APP_BACKEND_URL;
     const{bag,addToBag}=useContext(BagContext);
      
     const { id }=useParams();
     const[product, setProduct]=useState(null);
-    console.log("bag:" ,bag);
-     console.log("addtoBag",addToBag)
+   /* console.log("bag:" ,bag);
+    
+     console.log("addtoBag",addToBag)*/
     useEffect(()=>{
         const fetchProduct=async()=>{
             try{
-                const response= await axios.get(`/api/products/${id}`);
+                console.log(id);
+                const response= await axios.get(`http://localhost:8000/api/products/${id}`);
                 setProduct(response.data);
+                console.log(response.data);
 
             }
             catch(error){
@@ -26,8 +30,11 @@ const ProductPage=()=>{
         fetchProduct();
 
     },[id]);
+   
+
 
     if (!product) return <div>Loading...</div>;
+    
     return (
         <div>
             <Header/>
@@ -35,8 +42,8 @@ const ProductPage=()=>{
                 <h1>{product.name}</h1>
                
 
-                <img src={product.imageUrl} alt={product.name}/>
-                <p>${product.price.toFixed(2)}</p>
+                <img src={HOST+product.image} alt={product.name}/>
+                <p>${product.price}</p>
                 <p>{product.description}</p>
                  <Addbutton product={product} addToBag={addToBag}/>
             <section>
@@ -46,7 +53,7 @@ const ProductPage=()=>{
                 ):(
  <ul>
                    {bag.map((item,index)=>(
-                    <li key={index}>{item.name}-{item.price}</li>
+                    <li key={index}>{item.name}-${item.price}</li>
                 ))}
                    </ul>
                 )}

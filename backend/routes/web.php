@@ -19,6 +19,7 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('products/{id}',[ProductController::class,'show']);
 Route::get('/',[ProductController::class,'index']);
 Route::get('/contact',[ContactController::class,'index']);
 Route::get('/login',[MyauthController::class,'showLoginForm']);
