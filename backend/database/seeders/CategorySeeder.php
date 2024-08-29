@@ -15,17 +15,19 @@ class CategorySeeder extends Seeder
     {
         //
         DB::table('categories')->insert([
-            'name'=>'accessories',
+            'name'=>'women',
             'description'=>'desc null',
+            'image'=>'images/womenclothescat',
              'created_at'=>now(),
              'updated_at'=>now(),
 
         ],
     [
-        'name'=>'jeans',
+        'name'=>'men',
         'description'=>'clothes',
-        'created_at'=>now(),
-        'updated_at'=>now(),
+        'image'=>'images/menclothescat',
+        'created_at' =>now(),
+        'updated_at' =>now(),
 
     ]);
         
