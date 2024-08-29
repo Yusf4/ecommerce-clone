@@ -1,26 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CategoryCard from "../components/CategoryCard";
 
  
  
  
  const CategoriesPage=()=>{
+    cosnt [categories,setCategories]=useState([]);
     const url=process.env.REACT_APP_BACKEND_URL;
     useEffect(()=>{
         const fetchCategories=async()=>{
     try{
-        const response=await axios.get(url+'/categories');
-        const categories=response.data;
+        const response=await axios.get(url+'api/categories');
+        setCategories(response.data);
     }
     catch(error){
         console.error("no categories found",error);
     }
   }  
+   fetchCategories();
     },[]);
+   
     if(!categories) return <div>...Loading</div>
     return (
+
         <div>
-            <h2>{category.name}</h2>
-            <h3>{category.description}</h3>
+            <div>
+                {categories.map(category=>(
+                    <CategoryCard key={category.id} category={category}/>
+                ))}
+            </div>
+            
         </div>
 
     )
@@ -30,3 +39,4 @@ import { useEffect } from "react";
 
 
 }
+export default CategoriesPage;

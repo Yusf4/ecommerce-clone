@@ -6,11 +6,11 @@ import ProductCard from '../components/ProductCard';
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
-
+    const url=process.env.REACT_APP_BACKEND_URL;
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/products');
+                const response = await axios.get(`${url}api/products`);
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
