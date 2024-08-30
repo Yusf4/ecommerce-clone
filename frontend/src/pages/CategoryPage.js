@@ -10,7 +10,7 @@ const Category=()=>{
 useEffect(()=>{
   const fetchCategory=async()=>{
 try{
-    const response=await axios.get(url+`api/categories/${id}`);
+    const response=await axios.get(`${url}api/categories/${id}`);
     setCategory(response.data);
 }
 catch(error){
