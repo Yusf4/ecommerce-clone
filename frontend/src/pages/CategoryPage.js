@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom"
 import Header from "../components/Header";
 
 
-const Category=()=>{
+const CategoryPage=()=>{
      const{id}=useParams();
     const [category,setCategory]=useState(null);
     const url=process.env.REACT_APP_BACKEND_URL;
+    const fullU=url+`api/categories/${id}`;
 useEffect(()=>{
   const fetchCategory=async()=>{
 try{
-    const response=await axios.get(`${url}api/categories/${id}`);
+    const response=await axios.get(fullU);
     setCategory(response.data);
 }
 catch(error){
@@ -30,3 +32,4 @@ fetchCategory();
 </div>
   )
 }
+export default CategoryPage;

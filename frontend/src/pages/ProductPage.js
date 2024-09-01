@@ -18,7 +18,7 @@ const ProductPage=()=>{
         const fetchProduct=async()=>{
             try{
                 console.log(id);
-                const response= await axios.get(`http://localhost:8000/api/products/${id}`);
+                const response= await axios.get(`${HOST}api/products/${id}`);
                 setProduct(response.data);
                 console.log(response.data);
 

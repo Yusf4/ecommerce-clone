@@ -13,9 +13,10 @@ const ProductCard = ({ product }) => {
         <div className="p-4">
           <h3 className="text-gray-900 font-semibold text-lg mb-2">{product.name}</h3>
           <p className="text-gray-700 text-base">${product.price}</p>
-        <Addbutton product={product} addToBag={addToBag} />
+          <Addbutton product={product} addToBag={addToBag} />
         </div>
       </Link>
+    
     </div>
   );
 };

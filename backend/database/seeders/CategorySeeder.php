@@ -15,6 +15,7 @@ class CategorySeeder extends Seeder
     {
         //
         DB::table('categories')->insert([
+            [
             'name'=>'women',
             'description'=>'desc null',
             'image'=>'images/womenclothescat.jpg',
@@ -28,7 +29,7 @@ class CategorySeeder extends Seeder
         'image'=>'images/menclothescat.jpg',
         'created_at' =>now(),
         'updated_at' =>now(),
-
+    ]
     ]);
         
     }
