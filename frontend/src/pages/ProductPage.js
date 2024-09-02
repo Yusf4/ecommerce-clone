@@ -39,27 +39,46 @@ const ProductPage=()=>{
         <div>
             <Header/>
             <main>
-                <h1>{product.name}</h1>
-               
+            <div className="max-w-4xl mx-auto p-8 flex flex-col items-center">
+  <h1 className="text-4xl font-bold mb-4 text-center text-gray-800">
+    {product.name}
+  </h1>
 
-                <img src={HOST+product.image} alt={product.name}/>
-                <p>${product.price}</p>
-                <p>{product.description}</p>
-                 <Addbutton product={product} addToBag={addToBag}/>
-            <section>
-                <h2>Items in your Bag</h2>
-                {bag.length===0 ?(
-                    <p>your bag is empty</p>
-                ):(
- <ul>
-                   {bag.map((item,index)=>(
-                    <li key={index}>{item.name}-${item.price}</li>
-                ))}
-                   </ul>
-                )}
-               
-             
-            </section>
+  <img
+    src={HOST + product.image}
+    alt={product.name}
+    className="w-full max-w-md mb-6 rounded-lg shadow-lg"
+  />
+
+  <p className="text-2xl font-semibold text-red-500 mb-4">${product.price}</p>
+
+  <p className="text-lg text-gray-700 mb-6 text-center">
+    {product.description}
+  </p>
+
+  <Addbutton product={product} addToBag={addToBag} className="mb-8" />
+
+  <section className="w-full mt-8">
+    <h2 className="text-2xl font-semibold mb-4">Items in your Bag</h2>
+
+    {bag.length === 0 ? (
+      <p className="text-gray-600">Your bag is empty</p>
+    ) : (
+      <ul className="space-y-2">
+        {bag.map((item, index) => (
+          <li
+            key={index}
+            className="flex justify-between items-center p-4 border border-gray-200 rounded-lg"
+          >
+            <span>{item.name}</span>
+            <span className="font-semibold">${item.price}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</div>
+
             </main> 
             <Footer />
         </div>
