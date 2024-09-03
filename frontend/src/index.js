@@ -4,15 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BagProvider } from './components/contexts/BagContext';
+import { SearchProvider } from './components/contexts/SearchContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <SearchProvider>
   <BagProvider>
+   
     <React.StrictMode>
     <App />
     
   </React.StrictMode>
-  </BagProvider>,
+  </BagProvider>
+  </SearchProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import { BagContext } from './contexts/BagContext';
+import { SearchContext } from './contexts/SearchContext';
 
 const Header = () => {
     const url=process.env.REACT_APP_BACKEND_URL;
     const icon=`${url}images/shoppingBag.svg`;
     const {items}=useContext(BagContext);
+    const {setQuery}=useContext(SearchContext);
+    const[inputValue,setInputValue]=useState('');
+    const searchQuery=()=>{
+      setQuery(inputValue);
+    }
+
+
        
     return (
         <header className="bg-gray-800 p-4">
@@ -30,11 +39,15 @@ const Header = () => {
       
               <input
                 type="text"
+                value={inputValue}
+                onChange={(e)=> setInputValue(e.target.value)}
                 placeholder="Search..."
                 className="px-2 py-1 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
       
-              <button className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <button 
+              onClick={searchQuery}
+              className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 Search
               </button>
             </div>

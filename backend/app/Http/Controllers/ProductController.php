@@ -21,6 +21,11 @@ class ProductController extends Controller
         return response()->json($products);
 
     }
+    public function search(Request $request){
+        $query=$request->input('query');
+        $products=Product::where('name','like',"%{query}%")->get();
+        return response()->json($products);
+    }
     
     /**
      * Show the form for creating a new resource.
