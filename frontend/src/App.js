@@ -1,4 +1,5 @@
 import React from 'react';
+import Register from './pages/RegisterPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CategoriesPage from './pages/CategoriesPage';
@@ -12,6 +13,7 @@ function App() {
       <Route path="product/:id" element={<ProductPage />}/>
       <Route path="/categories" element={<CategoriesPage/>}/>
       <Route path="/categories/:name/:id" element={<CategoryPage/>}/>
+      <Route path="/register" element={<Register/>}/>
     </Routes>
    </Router>
   );

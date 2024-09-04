@@ -23,6 +23,7 @@ const Header = () => {
               <Link to="/" className="text-white hover:text-gray-400">Home</Link>
               <Link to="/categories" className="text-white hover:text-gray-400">Categories</Link>
               <Link to="/about" className="text-white hover:text-gray-400">About Us</Link>
+               <Link to="/register" className="text-white hover:text-gray-400">register</Link>
             </div>
       
             <div className="flex items-center space-x-4">
