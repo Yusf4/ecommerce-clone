@@ -11,8 +11,18 @@ use Illuminate\Http\Request;
 class MyauthController extends Controller
 {
     //
+   public function testRegister(Request $request){
+      $request=new Request([
+         'name'=>'john test',
+         'email'=>'johntest@gmail.com',
+         'password'=>'securePassword',
+      ]);
+     
+      return $this->register($request);
+    }
     public function register(Request $request){
-      dd($request->all());
+      //dd($request->all());
+      
         $validator=Validator::make($request->all(),[
         'name'=>'required|string|max:255',
         'email'=>'required|string|email|max:255|unique:users',
