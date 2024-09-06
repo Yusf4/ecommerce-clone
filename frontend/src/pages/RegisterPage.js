@@ -28,7 +28,7 @@ const RegisterPage=()=>{
         <div>
             <Header/>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Register</h2>
+    <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Create your account</h2>
 
     <div className="mb-4">
         <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
