@@ -25,6 +25,10 @@ Route::middleware(['api'])->group(function () {
     Route::get('/categories/{id}',[CategoryController::class,'show']);
     Route::get('/search/products/{query}',[ProductController::class,'search']);
     Route::post('/register',[MyauthController::class,'register']);
+    Route::post('/login',[MyauthController::class,'login']);
+    Route::post('/logout',[MyauthController::class,'logout']);
+    Route::get('/user',[MyauthController::class,'user'])->middleware('auth:sanctum');
+
 });
 
 

@@ -39,6 +39,29 @@ class MyauthController extends Controller
        ]);
        return response()->json(['message'=>'user registered successfully','user'=>$user]);
     }
+    public function login(Request $request){
+      $request->validate([
+         'email'=>'required|string|email',
+         'password'=>'required|string',
+      ]);
+      if(!Auth::attempt($request->only('email','password'))){
+         throw ValidationException::withMessages([
+            'email'=>['the provided credentials are incorrect.'],
+         ]);
+         
+      }
+      return response()->json(['message'=>'login successfully','user'=>Auth::user()]);
+
+
+    }
+    public function user(Request $request){
+      return $request->user();
+    }
+    public function logout(Request $request){
+      $request->user()->tokens()->delete();
+      return response()->json(['message'=>'logged out successfully']);
+    }
+        
 
     }
     
