@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,8 +17,26 @@ class MyauthController extends Controller
          'password'=>'securePassword',
       ]);
      
+    
       return $this->register($request);
     }
+    public function testLogin(Request $request){
+     
+         // Pass hardcoded credentials directly to Auth::attempt
+         $credentials = [
+             'email' => 'johntest@gmail.com',
+             'password' => 'securePassword',
+         ];
+         
+         if (!Auth::attempt($credentials)) {
+             // Return error if authentication fails
+             return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
+         }
+         
+         // Return success response if authentication succeeds
+         return response()->json(['message' => 'Login successful', 'user' => Auth::user()]);
+      
+   }
     public function register(Request $request){
       //dd($request->all());
       
@@ -44,6 +61,7 @@ class MyauthController extends Controller
          'email'=>'required|string|email',
          'password'=>'required|string',
       ]);
+    
       if(!Auth::attempt($request->only('email','password'))){
          throw ValidationException::withMessages([
             'email'=>['the provided credentials are incorrect.'],
