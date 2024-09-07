@@ -16,6 +16,9 @@ const RegisterPage=()=>{
             email,
             password
            });
+           setEmail("");
+           setName("");
+           setPassword("");
            console.log("register successfully",response.data);
         }
         catch(error){

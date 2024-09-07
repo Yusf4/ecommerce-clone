@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CategoriesPage from './pages/CategoriesPage';
 import  CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
+import LoginPage from './pages/LoginPage';
 function App() {
   return (
    <Router>
@@ -14,6 +15,9 @@ function App() {
       <Route path="/categories" element={<CategoriesPage/>}/>
       <Route path="/categories/:name/:id" element={<CategoryPage/>}/>
       <Route path="/register" element={<Register/>}/>
+      <Route path="/login" element={<LoginPage/>}/>
+
+      
     </Routes>
    </Router>
   );
