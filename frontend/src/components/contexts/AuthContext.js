@@ -1,5 +1,5 @@
 import { createContext,useState,useEffect } from "react";
-import axios from "axios";
+import axios from "../../axiosConfig";
 const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
@@ -13,12 +13,12 @@ export  const AuthProvider=({children})=>{
         setUser(null);
   console.error("fetching user failed",error);
     }
-    }
+    };
     fetchUser();
 },[]);
 const login=async(credentials)=>{
     const response=await axios.post('/login',credentials);
-    setUser(response.data);
+    setUser(response.data.user);
 };
 const logout= async ()=>{
     await axios.post('/logout');

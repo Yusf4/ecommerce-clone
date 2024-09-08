@@ -25,6 +25,6 @@ Route::get('/categories/{id}',[CategoryController::class,'show']);
 Route::get('/',[ProductController::class,'index']);
 Route::get('/categories',[CategoryController::class,'index']);
 Route::get('/contact',[ContactController::class,'index']);
-Route::post('/testLogin',[MyauthController::class,'testLogin'])->name('login');
+Route::get('/testLogin',[MyauthController::class,'testLogin'])->name('login');
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
 require __DIR__.'/auth.php';

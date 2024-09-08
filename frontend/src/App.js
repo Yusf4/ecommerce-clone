@@ -6,6 +6,7 @@ import CategoriesPage from './pages/CategoriesPage';
 import  CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
+import LoginTry from './pages/LoginTry';
 function App() {
   return (
    <Router>
@@ -15,7 +16,7 @@ function App() {
       <Route path="/categories" element={<CategoriesPage/>}/>
       <Route path="/categories/:name/:id" element={<CategoryPage/>}/>
       <Route path="/register" element={<Register/>}/>
-      <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/login" element={<LoginTry/>}/>
 
       
     </Routes>
