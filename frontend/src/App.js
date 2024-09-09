@@ -16,7 +16,7 @@ function App() {
       <Route path="/categories" element={<CategoriesPage/>}/>
       <Route path="/categories/:name/:id" element={<CategoryPage/>}/>
       <Route path="/register" element={<Register/>}/>
-      <Route path="/login" element={<LoginTry/>}/>
+      <Route path="/login" element={<LoginPage/>}/>
 
       
     </Routes>

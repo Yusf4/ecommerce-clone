@@ -1,34 +1,29 @@
 import axios from 'axios';
+import  React,{useState} from 'react';
+import { login } from '../axiosConfig';
 const LoginTry=()=>{
-  
-       axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(response => {
-        // Now we can make authenticated requests like login
-       axios.post('http://127.0.0.1:8000/api/login', {
-          email: 'johntest@gmail.com',
-          password: 'securePassword',
-        }) .then(response => {
-          console.log('Login success:', response.data);
-        
-        
-            const userResponse= axios.get('http://127.0.0.1:8000/api/user',{withCredentials:true})
-            .then(userResponse=>{
-                console.log(response.data);
-            })
-            
-        
-        .catch(err=>{
-            console.error("user not fetched",err);
-        });
-         
-        })
-        .catch(error => {
-          console.error('Login error:', error);
-        });
-      
-     
-       
-    });
-    
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          await login(email, password);
+          setMessage('Login successful');
+      } catch (error) {
+          setMessage('Invalid credentials');
+      }
+  };
+
+  return (
+      <form onSubmit={handleSubmit}>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <button type="submit">Login</button>
+          {message && <p>{message}</p>}
+      </form>
+  );
       
 }
 

@@ -1,6 +1,10 @@
 import axios from "axios";
-const axiosInstance=axios.create({
+const api=axios.create({
     baseURL:'http://127.0.0.1:8000/api',
     withCredentials:true,
 });
-export default axiosInstance;
+export const login=async(email,password)=>{
+    await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
+    return  await api.post('/login',{email,password});
+};
+export default api;

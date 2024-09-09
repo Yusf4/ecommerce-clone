@@ -11,15 +11,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <SearchProvider>
   <BagProvider>
-    <AuthProvider>
+    
+ <AuthProvider>
 
-
-   
     <React.StrictMode>
     <App />
-    
   </React.StrictMode>
   </AuthProvider>
+ 
   </BagProvider>
   </SearchProvider>
 );
