@@ -1,11 +1,8 @@
-import axios from "../axiosConfig";
+/*import api from "../axiosConfig";
 import { useState,useContext } from "react";
-import AuthContext from "../components/contexts/AuthContext";
+//import AuthContext from "../components/contexts/AuthContext";
 const LoginPage=()=>{
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer my-token',
-  };
+ 
     const[credentials,setCredentials]=useState({email:'',password:''});
 
     //const {login}=useContext(AuthContext);
@@ -16,10 +13,13 @@ const LoginPage=()=>{
   const handleSubmit= async (e)=>{
     e.preventDefault();
     try{
-      const response=await axios.post("http://127.0.0.1:8000/api/login",{
-        email:'johntest@gmail.com',
-        password:'securePassword'
-      },headers);
+      await api.get('/sanctum/csrf-cookie');
+
+     /* const response=await axios.post(
+        "http://127.0.0.1:8000/api/testLogin",
+        credentials,
+          {withCredentials:true},
+  );
       console.log(response.data);
       // await login(credentials);
         alert('logged in successfully');
@@ -43,4 +43,28 @@ const LoginPage=()=>{
    
   );
 }
-export default LoginPage;
+export default LoginPage;*/
+import axios from 'axios';
+import { useEffect } from 'react';
+
+const TestSanctum = () => {
+  useEffect(() => {
+    const getCsrfCookie = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', {
+          withCredentials: true,
+        });
+        console.log('CSRF Cookie Response:', response);
+      } catch (error) {
+        console.error('Error fetching CSRF cookie:', error);
+      }
+    };
+
+    getCsrfCookie();
+  }, []);
+
+  return <div>Testing Sanctum CSRF Cookie...</div>;
+};
+
+export default TestSanctum;
+

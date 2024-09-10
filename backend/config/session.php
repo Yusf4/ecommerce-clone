@@ -3,6 +3,9 @@
 use Illuminate\Support\Str;
 
 return [
+'same_site' => 'lax',
+'secure' => false, // If you're testing locally without HTTPS
+
 
     /*
     |--------------------------------------------------------------------------

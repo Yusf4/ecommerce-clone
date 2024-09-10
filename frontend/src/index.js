@@ -11,13 +11,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <SearchProvider>
   <BagProvider>
-    
- <AuthProvider>
 
     <React.StrictMode>
     <App />
   </React.StrictMode>
-  </AuthProvider>
+ 
  
   </BagProvider>
   </SearchProvider>

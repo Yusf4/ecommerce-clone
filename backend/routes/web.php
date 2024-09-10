@@ -28,4 +28,9 @@ Route::get('/contact',[ContactController::class,'index']);
 Route::get('/testLogin',[MyauthController::class,'testLogin'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
+// Typically not needed to add manually as it's included by Sanctum
+Route::get('/sanctum/csrf-cookie', function () {
+    return response()->json(['message' => 'CSRF Cookie Set']);
+});
+
 require __DIR__.'/auth.php';
