@@ -27,17 +27,22 @@ Route::middleware(['api'])->group(function () {
     Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{id}',[ProductController::class,'show']);
-    
+
     Route::get('/categories',[CategoryController::class,'index']);
     Route::get('/categories/{id}',[CategoryController::class,'show']);
     Route::get('/search/products/{query}',[ProductController::class,'search']);
     Route::post('/register',[MyauthController::class,'register']);
-    Route::post('/testLogin',[MyauthController::class,'login']);
+    Route::post('/testLogin', [MyauthController::class, 'login']);
     Route::post('/logout',[MyauthController::class,'logout']);
     Route::get('/user',[MyauthController::class,'user'])->middleware('auth:sanctum');
 
 });
-
+/*Route::middleware(['web'])->group(function () {
+    Route::get('/sanctum/csrf-cookie', function (Request $request) {
+        return response()->json(['message' => 'CSRF cookie set']);
+    });
+});
+*/
 
 /*
 Route::post('products','ProductController@store');

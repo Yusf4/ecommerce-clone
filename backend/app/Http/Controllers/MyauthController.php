@@ -37,7 +37,7 @@ class MyauthController extends Controller
          return response()->json(['message' => 'Login successful', 'user' => Auth::user()]);
       
    }*/
-   public function login(Request $request){
+   /*public function login(Request $request){
       $request->validate([
          'email'=>'required|string|email',
          'password'=>'required|string',
@@ -53,7 +53,30 @@ class MyauthController extends Controller
       return response()->json(['message'=>'login successfully','user'=>Auth::user()]);
 
 
-    }
+    }*/
+    public function login(Request $request){
+      $request->validate([
+         'email' => 'required|string|email',
+         'password' => 'required|string',
+     ]);
+   
+     // Attempt to authenticate the user using the given credentials
+     $credentials = $request->only('email', 'password');
+   
+     if (!Auth::attempt($credentials)) {
+         return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
+     }
+   
+     // If successful, generate a token and return the user data
+     $user = Auth::user();
+     $token = $user->createToken('authToken')->plainTextToken;
+   
+     return response()->json(['message' => 'Login successful', 'token' => $token, 'user' => $user]);
+   
+   }
+
+ 
+
     public function register(Request $request){
       //dd($request->all());
       
