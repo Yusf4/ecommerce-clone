@@ -17,15 +17,17 @@ use App\Http\Controllers\CategoryController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 Route::middleware(['api'])->group(function () {
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
    
     Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{id}',[ProductController::class,'show']);
+    
     Route::get('/categories',[CategoryController::class,'index']);
     Route::get('/categories/{id}',[CategoryController::class,'show']);
     Route::get('/search/products/{query}',[ProductController::class,'search']);

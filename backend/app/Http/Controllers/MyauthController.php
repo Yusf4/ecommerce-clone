@@ -20,7 +20,7 @@ class MyauthController extends Controller
     
       return $this->register($request);
     }
-    public function testLogin(Request $request){
+   /* public function testLogin(Request $request){
      
          // Pass hardcoded credentials directly to Auth::attempt
          $credentials = [
@@ -36,7 +36,7 @@ class MyauthController extends Controller
          // Return success response if authentication succeeds
          return response()->json(['message' => 'Login successful', 'user' => Auth::user()]);
       
-   }
+   }*/
    public function login(Request $request){
       $request->validate([
          'email'=>'required|string|email',
