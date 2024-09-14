@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MyauthController extends Controller
 {
     //
-   public function testRegister(Request $request){
+ /*  public function testRegister(Request $request){
       $request=new Request([
          'name'=>'john test',
          'email'=>'johntest@gmail.com',
@@ -19,41 +19,8 @@ class MyauthController extends Controller
      
     
       return $this->register($request);
-    }
-   /* public function testLogin(Request $request){
-     
-         // Pass hardcoded credentials directly to Auth::attempt
-         $credentials = [
-             'email' => 'johntest@gmail.com',
-             'password' => 'securePassword',
-         ];
-         
-         if (!Auth::attempt($credentials)) {
-             // Return error if authentication fails
-             return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
-         }
-         
-         // Return success response if authentication succeeds
-         return response()->json(['message' => 'Login successful', 'user' => Auth::user()]);
-      
-   }*/
-   /*public function login(Request $request){
-      $request->validate([
-         'email'=>'required|string|email',
-         'password'=>'required|string',
-      ]);
-    
-      if(!Auth::attempt($request->only('email','password'))){
-         throw ValidationException::withMessages([
-            'email'=>['the provided credentials are incorrect.'],
-         ]);
-         
-      }
-      $request->session()->regenerate();
-      return response()->json(['message'=>'login successfully','user'=>Auth::user()]);
-
-
     }*/
+
     public function login(Request $request){
       $request->validate([
          'email' => 'required|string|email',

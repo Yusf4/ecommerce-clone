@@ -2,12 +2,14 @@ import React from 'react';
 import Register from './pages/RegisterPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
 import CategoriesPage from './pages/CategoriesPage';
 import  CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import LoginTry from './pages/LoginTry';
 function App() {
+  const [flashMessage,setFlashMessage]=useState('');
   return (
    <Router>
     <Routes>
