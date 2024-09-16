@@ -3,10 +3,11 @@ import React, { useContext,useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BagContext } from './contexts/BagContext';
 import { SearchContext } from './contexts/SearchContext';
-
+import AuthContext from './contexts/AuthContext';
 const Header = () => {
     const url=process.env.REACT_APP_BACKEND_URL;
     const icon=`${url}images/shoppingBag.svg`;
+    const{user}=useContext(AuthContext);
     const {items}=useContext(BagContext);
     const {setQuery}=useContext(SearchContext);
     const[inputValue,setInputValue]=useState('');
@@ -58,12 +59,21 @@ const Header = () => {
           </button>
     
           {/* Login and Register buttons */}
-          <Link
-            to="/login"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Login
-          </Link>
+          { user ?(
+  <Link
+  to="/login"
+  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+>
+  Login
+</Link>  ) :(
+    <Link
+    to="/logout"
+    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
+  Logout
+  </Link> 
+)}
+        
           <Link
             to="/register"
             className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"

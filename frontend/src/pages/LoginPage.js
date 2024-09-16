@@ -45,26 +45,34 @@ const LoginPage=()=>{
 }
 export default LoginPage;*/
 import api from '../axiosConfig';
-import { useState } from 'react';
+import { useCallback, useState ,useContext, useEffect} from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-const LoginPage = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
 
+import AuthContext from '../components/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+const LoginPage = () => {
+  const {user,login}=useContext(AuthContext);
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+ const navigate=useNavigate();
+ useEffect(()=>{
+  if(user){
+  navigate('/');
+  }
+ },[user,navigate])
   const handleChange = (e) => {
+  
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("http://127.0.0.1:8000/sanctum/csrf-cookie");
-      await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
-       //Proceed with login request
-       const response = await axios.post('http://127.0.0.1:8000/api/testLogin', credentials);
-       console.log(response.data);
-      alert('CSRF Cookie Set');
+      
+    await login(credentials);
+    console.log("logged in successfully");
     } catch (error) {
       console.error('CSRF Cookie Error:', error);
     }

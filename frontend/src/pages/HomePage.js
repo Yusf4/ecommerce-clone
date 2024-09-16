@@ -3,11 +3,13 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
+import AuthContext from '../components/contexts/AuthContext';
 import { SearchContext } from '../components/contexts/SearchContext';
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
     const {query}=useContext(SearchContext);
+    const{user}=useContext(AuthContext);
     const[filteredProducts,setFilteredProducts]=useState([]);
     const url=process.env.REACT_APP_BACKEND_URL;
     useEffect(() => {
