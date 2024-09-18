@@ -39,7 +39,7 @@ const login=async(credentials)=>{
     localStorage.setItem('authToken', response.data.token); 
 };
 const logout= async ()=>{
-    await axios.post('http://127.0.0.1:8000/logout');
+    await axios.post('http://127.0.0.1:8000/api/testLogout');
     setUser(null);
     localStorage.removeItem('authToken')
 };

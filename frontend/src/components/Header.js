@@ -59,19 +59,21 @@ const Header = () => {
           </button>
     
           {/* Login and Register buttons */}
-          { user ?(
-  <Link
-  to="/login"
-  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
->
-  Login
-</Link>  ) :(
-    <Link
+          { user ?( 
+             <Link
     to="/logout"
     className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
   >
   Logout
   </Link> 
+   ) :(
+    <Link
+    to="/login"
+    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
+    Login
+  </Link>
+  
 )}
         
           <Link

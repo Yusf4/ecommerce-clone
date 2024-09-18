@@ -67,13 +67,20 @@ class MyauthController extends Controller
     public function user(Request $request){
       return $request->user();
     }
-    public function logout(Request $request){
-     Auth::guard('web')->logout();
-     $request->session()->invalidate();
-     $request->session()->regeneraToken();
-      return response()->json(['message'=>'logged out successfully']);
-    }
-        
+ 
+public function logout(Request $request)
+{
+$user = $request->user();
 
-    }
-    
+if (!$user) {
+    return response()->json(['error' => 'No authenticated user found'], 401);
+}
+
+// Revoke the token
+$user->currentAccessToken()->delete();
+
+return response()->json([
+    'message' => 'Logged out successfully'
+]);
+} 
+}

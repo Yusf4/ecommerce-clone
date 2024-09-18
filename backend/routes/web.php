@@ -29,6 +29,7 @@ Route::post('/testLogin',[MyauthController::class,'login'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
 // Typically not needed to add manually as it's included by Sanctum
+Route::post('/logout',[MyauthController::class,'logout']);
 Route::get('/sanctum/csrf-cookie', function () {
     return response()->json(['message' => 'CSRF Cookie Set']);
 });

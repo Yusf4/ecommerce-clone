@@ -33,7 +33,7 @@ Route::middleware(['api'])->group(function () {
     Route::get('/search/products/{query}',[ProductController::class,'search']);
     Route::post('/register',[MyauthController::class,'register']);
     Route::post('/testLogin', [MyauthController::class, 'login']);
-    Route::post('/logout',[MyauthController::class,'logout']);
+    Route::post('/testLogout',[MyauthController::class,'logout'])->middleware('auth:sanctum');
     Route::get('/user',[MyauthController::class,'user'])->middleware('auth:sanctum');
 
 });

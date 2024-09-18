@@ -1,8 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import AuthContext from "../components/contexts/AuthContext";
-const LogoutPage=async()=>{
-    await logout
+import { useContext, useEffect } from "react";
+const LogoutPage=()=>{
+    const { logout }=useContext(AuthContext);
      const navigate=useNavigate();
-     navigate('/');
+     useEffect(()=>{
+       const performLogout=async()=>{
+       await logout();
+         navigate('/');
+     }  
+     performLogout();
+     },[logout,navigate]);
+    
+    return null;
      
 }
+export default LogoutPage;

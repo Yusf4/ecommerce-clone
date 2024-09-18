@@ -7,7 +7,7 @@ import CategoriesPage from './pages/CategoriesPage';
 import  CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
-
+import LogoutPage from './pages/LogoutPage';
 function App() {
   const [flashMessage,setFlashMessage]=useState('');
   return (
@@ -19,7 +19,7 @@ function App() {
       <Route path="/categories/:name/:id" element={<CategoryPage/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/login" element={<LoginPage/>}/>
-      <Route path="/logout" element={<HomePage/>}/>
+      <Route path="/logout" element={<LogoutPage/>}/>
 
       
     </Routes>
