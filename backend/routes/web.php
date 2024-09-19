@@ -28,8 +28,10 @@ Route::get('/contact',[ContactController::class,'index']);
 Route::post('/testLogin',[MyauthController::class,'login'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
+Route::post('/testLog',[MyauthController::class,'logout']);
 // Typically not needed to add manually as it's included by Sanctum
-Route::post('/logout',[MyauthController::class,'logout']);
+//Route::middleware('auth:sanctum')->post('/testLogout', [MyauthController::class, 'logout']);
+//Route::post('/testLogout',[MyauthController::class,'logout']);
 Route::get('/sanctum/csrf-cookie', function () {
     return response()->json(['message' => 'CSRF Cookie Set']);
 });

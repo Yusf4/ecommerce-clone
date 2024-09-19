@@ -21,6 +21,26 @@ class MyauthController extends Controller
       return $this->register($request);
     }*/
 
+    public function register(Request $request){
+      //dd($request->all());
+      
+        $validator=Validator::make($request->all(),[
+        'name'=>'required|string|max:255',
+        'email'=>'required|string|email|max:255|unique:users',
+        'password'=>'required|string|min:8',
+       'role'=>$request->role?? 'customer',
+    ]);
+       if($validator->fails()){
+        return response()->json(['errors'=>$validator->errors()],422);
+       }
+       $user=User::create([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'password'=>Hash::make($request->password),
+       ]);
+       return response()->json(['message'=>'user registered successfully','user'=>$user]);
+    }
+
     public function login(Request $request){
       $request->validate([
          'email' => 'required|string|email',
@@ -44,25 +64,6 @@ class MyauthController extends Controller
 
  
 
-    public function register(Request $request){
-      //dd($request->all());
-      
-        $validator=Validator::make($request->all(),[
-        'name'=>'required|string|max:255',
-        'email'=>'required|string|email|max:255|unique:users',
-        'password'=>'required|string|min:8',
-       'role'=>$request->role?? 'customer',
-    ]);
-       if($validator->fails()){
-        return response()->json(['errors'=>$validator->errors()],422);
-       }
-       $user=User::create([
-        'name'=>$request->name,
-        'email'=>$request->email,
-        'password'=>Hash::make($request->password),
-       ]);
-       return response()->json(['message'=>'user registered successfully','user'=>$user]);
-    }
 
     public function user(Request $request){
       return $request->user();
@@ -70,7 +71,10 @@ class MyauthController extends Controller
  
 public function logout(Request $request)
 {
-$user = $request->user();
+  return response()->json([
+    'message'=>'hello world',
+  ]);
+/*$user = $request->user();
 
 if (!$user) {
     return response()->json(['error' => 'No authenticated user found'], 401);
@@ -81,6 +85,6 @@ $user->currentAccessToken()->delete();
 
 return response()->json([
     'message' => 'Logged out successfully'
-]);
+]);*/
 } 
 }
