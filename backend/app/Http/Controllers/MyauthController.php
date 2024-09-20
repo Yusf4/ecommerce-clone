@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class MyauthController extends Controller
 {
+  public function testing(){
+    return response()->json([
+      'message'=>'hello worlddd'
+    ]);
+  }
     //
  /*  public function testRegister(Request $request){
       $request=new Request([
@@ -66,15 +71,14 @@ class MyauthController extends Controller
 
 
     public function user(Request $request){
-      return $request->user();
+      \Log::info('Authenticated user:', ['user' => $request->user()]);
+      return response()->json($request->user());
     }
  
 public function logout(Request $request)
 {
-  return response()->json([
-    'message'=>'hello world',
-  ]);
-/*$user = $request->user();
+
+$user = $request->user();
 
 if (!$user) {
     return response()->json(['error' => 'No authenticated user found'], 401);
@@ -85,6 +89,6 @@ $user->currentAccessToken()->delete();
 
 return response()->json([
     'message' => 'Logged out successfully'
-]);*/
+]);
 } 
 }

@@ -31,9 +31,8 @@ Route::middleware(['api'])->group(function () {
     Route::get('/categories/{id}',[CategoryController::class,'show']);
     Route::get('/search/products/{query}',[ProductController::class,'search']);
     Route::post('/register',[MyauthController::class,'register']);
-    Route::middleware('auth:sanctum')->post('/testLogout', [MyauthController::class, 'logout']);
+    Route::post('/testLogout',[MyauthController::class,'logout']);
     Route::post('/testLogin', [MyauthController::class, 'login']);
- 
-    Route::get('/user',[MyauthController::class,'user'])->middleware('auth:sanctum');
+    Route::get('/user',[MyauthController::class,'user']);
 
 });
