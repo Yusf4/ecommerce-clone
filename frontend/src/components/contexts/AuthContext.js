@@ -37,9 +37,14 @@ const login=async(credentials)=>{
     console.log(response.data);
     setUser(response.data.user);
     localStorage.setItem('authToken', response.data.token); 
+   
 };
 const logout= async ()=>{
-    await axios.post('http://127.0.0.1:8000/api/testLogout');
+    await axios.post('http://127.0.0.1:8000/api/testLogout', {}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      }
+    });
     setUser(null);
     localStorage.removeItem('authToken')
 };
