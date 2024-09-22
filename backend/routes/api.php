@@ -34,7 +34,7 @@ Route::middleware(['api'])->group(function () {
     Route::post('/testLogin', [MyauthController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', function (Request $request) {
-        return response()->json($request->user()); 
+        return $request->user(); 
     });
     Route::post('/testLogout',[MyauthController::class,'logout']);
     });

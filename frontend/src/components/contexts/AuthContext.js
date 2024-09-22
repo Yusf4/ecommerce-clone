@@ -8,11 +8,17 @@ export  const AuthProvider=({children})=>{
     useEffect(()=>{
     const fetchUser=async ()=>{
     try{
-        
+        console.log("Hello user");
         const token=localStorage.getItem('authToken');
+        console.log(token);
         if(token){
-             const response=await axios.get('http://127.0.0.1:8000/api/user');
-        console.log("fetched user successfully")
+            
+             const response=await axios.get('http://127.0.0.1:8000/api/user',{
+                headers:{
+               Authorization:`Bearer ${token}`,  
+                }
+             });
+        console.log("fetched user successfully");
         setUser(response.data); 
         }
         else{
@@ -40,13 +46,16 @@ const login=async(credentials)=>{
    
 };
 const logout= async ()=>{
-    await axios.post('http://127.0.0.1:8000/api/testLogout', {}, {
+    const tok=localStorage.getItem('authToken');
+   
+    await axios.post('http://127.0.0.1:8000/api/testLogout',{},{
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        Authorization: `Bearer ${tok}`,
       }
     });
     setUser(null);
-    localStorage.removeItem('authToken')
+    localStorage.removeItem('authToken');
+    console.log("logout successfully");
 };
 return (
     <AuthContext.Provider value={{user,login,logout}}>
