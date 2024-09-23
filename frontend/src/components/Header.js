@@ -47,6 +47,7 @@ const Header = () => {
           </div>
     
           {/* Bag icon with counter */}
+          <Link to="/Bag">
           <button className="relative">
             <img
               className="w-6 h-6 filter invert"
@@ -57,6 +58,7 @@ const Header = () => {
               {items}
             </span>
           </button>
+          </Link>
     
           {/* Login and Register buttons */}
           { user ?( 
