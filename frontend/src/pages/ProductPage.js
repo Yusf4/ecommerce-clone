@@ -55,7 +55,7 @@ const ProductPage=()=>{
     {product.description}
   </p>
 
-  <Addbutton product={product} addToBag={addToBag} className="mb-8" />
+  <Addbutton product={product} addToBag={addToBag} isProductPage={true} className="mb-8" />
 
   <section className="w-full mt-8">
     <h2 className="text-2xl font-semibold mb-4">Items in your Bag</h2>

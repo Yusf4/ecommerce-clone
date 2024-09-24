@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useContext,useState} from "react";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 const RegisterPage=()=>{
     const HOST=process.env.REACT_APP_BACKEND_URL;
     console.log(`${HOST}api/register`);
@@ -78,6 +79,15 @@ const RegisterPage=()=>{
         >
             Register
         </button>
+        <div className="mt-4 text-center">
+            <span className="text-gray-600">Already have an account? </span>
+            <Link 
+              to="/login" 
+              className="text-blue-500 hover:text-blue-700 transition duration-300"
+            >
+              Login here
+            </Link>
+          </div>
     </div>
 </form>
 

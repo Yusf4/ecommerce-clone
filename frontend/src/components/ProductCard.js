@@ -12,8 +12,8 @@ const ProductCard = ({ product }) => {
         <img className="w-full h-48 object-cover" src={imageUrl} alt={product.name} />
         <div className="p-4">
           <h3 className="text-gray-900 font-semibold text-lg mb-2">{product.name}</h3>
-          <p className="text-gray-700 text-base">${product.price}</p>
-          <Addbutton product={product} addToBag={addToBag} />
+          <p className="text-gray-700 text-base m-2">${product.price}</p>
+          <Addbutton  product={product} addToBag={addToBag}  isProductPage={false}/>
         </div>
       </Link>
     

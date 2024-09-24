@@ -8,6 +8,7 @@ import  CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
+import BagPage from './pages/BagPage';
 function App() {
   const [flashMessage,setFlashMessage]=useState('');
   return (
