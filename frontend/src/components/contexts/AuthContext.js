@@ -5,12 +5,13 @@ const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
     const[loading,setLoading]=useState(true);
+    const [flashMessage,setFlashMessage]=useState('');
     useEffect(()=>{
     const fetchUser=async ()=>{
     try{
-        console.log("Hello user");
+        
         const token=localStorage.getItem('authToken');
-        console.log(token);
+      
         if(token){
             
              const response=await axios.get('http://127.0.0.1:8000/api/user',{
@@ -36,15 +37,36 @@ export  const AuthProvider=({children})=>{
     };
     fetchUser();
 },[]);
+//Register request
+const register=async(credentials)=>{
+    try{
+       const response=await axios.post('http://127.0.0.1:8000/api/register');  
+    }
+    catch(error){
+        console.error("registration")
+    }
+ 
+  
+}
+
+
+
+
+//login request
+
 const login=async(credentials)=>{
+    
     await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
     //Proceed with login request
     const response = await axios.post('http://127.0.0.1:8000/api/testLogin', credentials);
+    setFlashMessage("logged in successfully");
     console.log(response.data);
     setUser(response.data.user);
     localStorage.setItem('authToken', response.data.token); 
    
 };
+
+//logout request
 const logout= async ()=>{
     const tok=localStorage.getItem('authToken');
    
@@ -53,12 +75,13 @@ const logout= async ()=>{
         Authorization: `Bearer ${tok}`,
       }
     });
+    setFlashMessage("Goodbye");
     setUser(null);
     localStorage.removeItem('authToken');
     console.log("logout successfully");
 };
 return (
-    <AuthContext.Provider value={{user,login,logout}}>
+    <AuthContext.Provider value={{user,login,logout,setFlashMessage,flashMessage}}>
         {children}
     </AuthContext.Provider>
 );

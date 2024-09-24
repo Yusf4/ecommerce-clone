@@ -8,7 +8,10 @@ const RegisterPage=()=>{
     const[name,setName]=useState('');
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
+    const [errorMessage,setErrorMessage]=useState('');
+    
     const handleSubmit=async(e)=>{
+        setErrorMessage('');
         e.preventDefault();
         try{
             console.log("before request");
@@ -23,8 +26,9 @@ const RegisterPage=()=>{
            console.log("register successfully",response.data);
         }
         catch(error){
+            setErrorMessage("Account already exists with this email. ")
             console.error("failed registration:",error);
-
+                
         }
     }
     
@@ -33,7 +37,11 @@ const RegisterPage=()=>{
             <Header/>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
     <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Create your account</h2>
-
+    {errorMessage &&(
+         <div className="bg-red-100 text-red-600 p-2 mb-4 text-center rounded-md">
+         {errorMessage}
+     </div>
+    ) }
     <div className="mb-4">
         <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
         <input 
