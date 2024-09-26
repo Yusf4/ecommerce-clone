@@ -38,6 +38,6 @@ Route::middleware(['api'])->group(function () {
     });
     Route::post('/testLogout',[MyauthController::class,'logout']);
     });
-    // Route::get('/user',[MyauthController::class,'user']);
+   Route::post('/checkout',[PaymentController::class,'createPayment']);
 
 });

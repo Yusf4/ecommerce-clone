@@ -19,13 +19,27 @@ export const BagProvider=({children})=>{
     });
      
     };
+    const removeFromBag=(productId)=>{
+      setBag((prevBag)=> prevBag.filter((item)=>item.product.id!==productId))
+    };
+   
+  
+    const  updateQuantity=(productId,newQuantity)=>{
+      setBag((prevBag)=>
+        prevBag.map((item)=>
+          item.product.id==productId
+      ? {...item,quantity:Math.max(newQuantity,1)}
+      :item
+      )
+    );
+    };
     useEffect(()=>{
       const totalItems=bag.reduce((total,item)=>total+item.quantity,0);
  setItems(totalItems);
     },[bag]);
    
     return (
-        <BagContext.Provider value={{bag,addToBag,items}}>
+        <BagContext.Provider value={{bag,addToBag,items,updateQuantity,removeFromBag}}>
           {children}
         </BagContext.Provider>
     )

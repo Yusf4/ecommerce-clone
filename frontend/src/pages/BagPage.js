@@ -6,7 +6,8 @@ import { BagContext } from '../components/contexts/BagContext';
 const BagPage = () => {
 
     const HOST=process.env.REACT_APP_BACKEND_URL;
-  const { bag } = useContext(BagContext);
+  const { bag ,updateQuantity,removeFromBag} = useContext(BagContext);
+ 
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -40,22 +41,33 @@ const BagPage = () => {
                   <span className="text-lg font-semibold">Quantity:</span>
                   <div className="flex items-center border border-gray-300 rounded-md">
                     <button
+                    onClick={()=>updateQuantity(item.product.id,item.quantity-1)}
                       className="px-2 py-1 text-gray-600 focus:outline-none hover:bg-gray-100"
-                      // Add your logic for decreasing quantity
+                    
                     >
                       -
                     </button>
                     <span className="px-3 py-1 text-gray-800">{item.quantity}</span>
                     <button
+                      onClick={()=>updateQuantity(item.product.id,item.quantity+1)}
                       className="px-2 py-1 text-gray-600 focus:outline-none hover:bg-gray-100"
-                      // Add your logic for increasing quantity
+                  
                     >
                       +
                     </button>
                   </div>
                 </div>
+      
+           
                 {/* Product Price */}
-                <div className="text-lg font-semibold text-gray-800">${item.product.price}</div>
+                <div className="text-lg m-1 font-semibold text-gray-800">${item.product.price}</div>
+                {/* Remove Button*/}
+                <button
+                  className="ml-4 text-red-500 hover:text-red-700 focus:outline-none"
+                  onClick={() => removeFromBag(item.product.id)}
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
