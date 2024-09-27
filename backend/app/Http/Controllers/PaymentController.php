@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Payment;
+use App\Models\Payments;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
-
 
 class PaymentController extends Controller
 {
@@ -15,10 +14,18 @@ class PaymentController extends Controller
             
         try{
             $paymentIntent=PaymentIntent::create([
-                'amount'=>1000,
+                'amount'=>$request->amount,
                 'currency'=>'usd',
+                'description'=>'Payment for order #',
                 'payment_method'=>$request->paymentMethodId,
                 'confirm'=>true,
+                  'return_url' => 'http://127.0.0.1:8000/',
+            ]);
+            Payments::create([
+                'order_id'=>$request->order_id,
+                'payment_method'=>'stripe',
+                'amount'=>$paymentIntent->amount,
+                'status'=>$paymentIntent->status,
             ]);
             return response()->json(['success'=>true,'paymentIntent'=>$paymentIntent]);
             
