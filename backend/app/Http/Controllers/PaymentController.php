@@ -27,6 +27,11 @@ class PaymentController extends Controller
                 'amount'=>$paymentIntent->amount,
                 'status'=>$paymentIntent->status,
             ]);
+            if($paymentIntent->status==='succeeded'){
+                $order=Order::find($request->order_id);
+                $order->status='completed';
+                $order->save();
+            }
             return response()->json(['success'=>true,'paymentIntent'=>$paymentIntent]);
             
         }

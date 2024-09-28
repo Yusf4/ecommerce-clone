@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 use App\Http\Controllers\MyauthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -39,6 +40,6 @@ Route::middleware(['api'])->group(function () {
     });
     Route::post('/testLogout',[MyauthController::class,'logout']);
     });
-   Route::post('/checkout',[PaymentController::class,'createPayment']);
-
+   Route::post('/payment',[PaymentController::class,'createPayment']);
+   Route::post('/order',[OrderController::class,'createOrder']);
 });

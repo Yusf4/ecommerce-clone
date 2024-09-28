@@ -28,6 +28,7 @@ Route::get('/contact',[ContactController::class,'index']);
 Route::post('/testLogin',[MyauthController::class,'login'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
+
 Route::post('/testLog',function(){
     return "hello world";
 });
