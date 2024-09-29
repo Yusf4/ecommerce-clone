@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +14,19 @@ class OrderController extends Controller
 
     public function createOrder(Request $request){
         $order=Order::create([
-            'user_id'=>Auth::id(),
+            'user_id'=>$request->user_id,//Auth::id(),
             'total'=>$request->total,
             'status'=>'pending',
-        ]);
+        ]); 
         foreach($request->bag as $item){
-            $order->products()->create([
-                'product_id'=>$item['product']['id'],
+            $product=Product::find($item['id']);
+            if($product){
+               $order->products()->attach($product->id,[
                 'quantity'=>$item['quantity'],
-            ]);
+                'price'=>$product->price,
+            ]);  
+            }
+           
         }
         return response()->json(['order_id'=>$order->id]);
     }
