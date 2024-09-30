@@ -14,17 +14,6 @@ class MyauthController extends Controller
       'message'=>'hello worlddd'
     ]);
   }
-    //
- /*  public function testRegister(Request $request){
-      $request=new Request([
-         'name'=>'john test',
-         'email'=>'johntest@gmail.com',
-         'password'=>'securePassword',
-      ]);
-     
-    
-      return $this->register($request);
-    }*/
 
     public function register(Request $request){
       //dd($request->all());

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Payments;
-
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;

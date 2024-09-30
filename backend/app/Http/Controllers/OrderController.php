@@ -13,8 +13,12 @@ class OrderController extends Controller
 {
 
     public function createOrder(Request $request){
-        $order=Order::create([
-            'user_id'=>$request->user_id,//Auth::id(),
+        
+    
+           
+          
+            $order=Order::create([
+            'user_id'=>Auth::id(),
             'total'=>$request->total,
             'status'=>'pending',
         ]); 
@@ -29,6 +33,8 @@ class OrderController extends Controller
            
         }
         return response()->json(['order_id'=>$order->id]);
+    
+ 
     }
     /**
      * Display a listing of the resource.

@@ -39,7 +39,8 @@ Route::middleware(['api'])->group(function () {
         return $request->user(); 
     });
     Route::post('/testLogout',[MyauthController::class,'logout']);
+    Route::post('/payment',[PaymentController::class,'createPayment']);
+    Route::post('/order',[OrderController::class,'createOrder']);
     });
-   Route::post('/payment',[PaymentController::class,'createPayment']);
-   Route::post('/order',[OrderController::class,'createOrder']);
+  
 });
