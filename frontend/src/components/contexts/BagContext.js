@@ -2,6 +2,7 @@ import React,{createContext,useEffect,useState} from "react";
 
 export const BagContext=createContext();
 export const BagProvider=({children})=>{
+  const [totalPrice,setTotalPrice]=useState(0);
     const[bag,setBag]=useState([]);
     const [items,setItems]=useState(0);
     const addToBag=(product)=>{
@@ -25,6 +26,7 @@ export const BagProvider=({children})=>{
    
   
     const  updateQuantity=(productId,newQuantity)=>{
+
       setBag((prevBag)=>
         prevBag.map((item)=>
           item.product.id==productId
@@ -34,12 +36,14 @@ export const BagProvider=({children})=>{
     );
     };
     useEffect(()=>{
+      const totalP=bag.reduce((total,item)=>total+(item.quantity*item.product.price),0);
+      setTotalPrice(totalP);
       const totalItems=bag.reduce((total,item)=>total+item.quantity,0);
  setItems(totalItems);
     },[bag]);
    
     return (
-        <BagContext.Provider value={{bag,addToBag,items,updateQuantity,removeFromBag}}>
+        <BagContext.Provider value={{bag,addToBag,items,updateQuantity,removeFromBag,totalPrice}}>
           {children}
         </BagContext.Provider>
     )
