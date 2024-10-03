@@ -9,6 +9,7 @@ import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import BagPage from './pages/BagPage';
+import Payment from './components/Payment';
 function App() {
   const [flashMessage,setFlashMessage]=useState('');
   return (

@@ -2,10 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import { BagContext } from './contexts/BagContext';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from './contexts/AuthContext';
 const OrderSummary = () => {
    
   const HOST = process.env.REACT_APP_BACKEND_URL;
-  const { user,bag, totalPrice } = useContext(BagContext);
+  const {user}=useContext(AuthContext);
+  const { bag, totalPrice } = useContext(BagContext);
+  
      const [url,setUrl]=useState('');
     useEffect(()=>{
       setUrl(user ? '/payment':'/login');
