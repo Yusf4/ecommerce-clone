@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 use App\Http\Controllers\MyauthController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -38,6 +39,7 @@ Route::middleware(['api'])->group(function () {
         Route::get('/user', function (Request $request) {
         return $request->user(); 
     });
+    Route::post('/address',[AddressController::class,'createAddress']);
     Route::post('/testLogout',[MyauthController::class,'logout']);
     Route::post('/payment',[PaymentController::class,'createPayment']);
     Route::post('/order',[OrderController::class,'createOrder']);
