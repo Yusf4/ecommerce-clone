@@ -14,7 +14,7 @@ class AddressController extends Controller
     //
     public function createAddress(Request $request){
        try{
- 
+      
         $address=Addresses::create([
             'user_id'=>Auth::id(),
             'address_line_1'=>$request->addressLine1,
@@ -27,7 +27,8 @@ class AddressController extends Controller
         return response()->json(['success'=>true,'address'=>$address]);
        }
        catch(\Exception  $e){
-        return response()->json(['error'=>$e.getMessage()],500);
+
+        return response()->json(['error'=>$e->getMessage()],500);
        }
       
     }

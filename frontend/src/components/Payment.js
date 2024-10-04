@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import OrderSummary from './OrderSummary'; // Ensure OrderSummary is imported correctly
 import axios from 'axios';
+import Header from './Header';
+import { useNavigate } from 'react-router-dom';
 const Payment = () => {
   const[addressLine1,setAddressLine1]=useState('');
   const[addressLine2,setAddressLine2]=useState('');
@@ -9,16 +11,30 @@ const Payment = () => {
   const[country,setCountry]=useState('');
   
   const url=process.env.REACT_APP_BACKEND_URL;
+  const navigate=useNavigate();
   const enroll=async(e)=>{
    e.preventDefault();
    try{
-      const response=axios.post(`${url}+api/address`,{
+console.log("state:"+state);
+console.log("address1:"+addressLine1);
+console.log("address2:"+addressLine2);
+console.log("country:"+country);
+console.log("city:"+city);
+   const token=localStorage.getItem('authToken');
+   console.log("token:"+token);
+      const response= await axios.post(`http://127.0.0.1:8000/api/address`,{
         addressLine1,
         addressLine2,
         city,
         state,
         country
+      },{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
       });
+     console.log("address created:"+response.data);
+     navigate('/');
    }
    catch(error){
    console.error("failed address creation:"+error.message);
@@ -26,7 +42,7 @@ const Payment = () => {
 }
   return (
     <div className="max-w-5xl mx-auto p-6">
-     
+     <Header/>
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         
         <form onSubmit={enroll} className="w-full md:w-2/3 bg-white p-6 rounded-md shadow-md space-y-4">
@@ -72,6 +88,7 @@ const Payment = () => {
               type="text"
               name="city"
               id="city"
+              value={city}
               onChange={(e)=>setCity(e.target.value)}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
               required
@@ -87,6 +104,7 @@ const Payment = () => {
               type="text"
               name="state"
               id="state"
+              value={state}
               onChange={(e)=>setState(e.target.value)}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
               required
@@ -101,7 +119,7 @@ const Payment = () => {
             </label>
             <input
               type="text"
-              name="card"
+              name="country"
               id="country"
               onChange={(e)=>setCountry(e.target.value)}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-gray-900 focus:ring-blue-500 focus:border-blue-500"

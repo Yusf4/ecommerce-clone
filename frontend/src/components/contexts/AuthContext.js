@@ -4,6 +4,7 @@ import axios from "axios";
 const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
+    const[token,setToken]=useState(null);
     const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
     useEffect(()=>{
@@ -81,7 +82,7 @@ const logout= async ()=>{
     console.log("logout successfully");
 };
 return (
-    <AuthContext.Provider value={{user,login,logout,setFlashMessage,flashMessage}}>
+    <AuthContext.Provider value={{user,token,login,logout,setFlashMessage,flashMessage}}>
         {children}
     </AuthContext.Provider>
 );
