@@ -11,7 +11,7 @@ const OrderSummary = () => {
   
      const [url,setUrl]=useState('');
     useEffect(()=>{
-      setUrl(user ? '/payment':'/login');
+      setUrl(user ? '/address':'/login');
     },[user]);
 
   return (

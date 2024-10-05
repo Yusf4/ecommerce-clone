@@ -8,7 +8,7 @@ export  const AuthProvider=({children})=>{
     const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
     useEffect(()=>{
-    const fetchUser=async ()=>{
+    const fetchUser=async(e)=>{
     try{
         
         const token=localStorage.getItem('authToken');

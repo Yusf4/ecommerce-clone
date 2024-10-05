@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import BagPage from './pages/BagPage';
 import Payment from './components/Payment';
+import AddressPage from './pages/AddressPage';
 function App() {
   const [flashMessage,setFlashMessage]=useState('');
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route path="/login" element={<LoginPage/>}/>
       <Route path="/logout" element={<LogoutPage/>}/>
       <Route path="/Bag" element={<BagPage/>}/>
-      <Route path="/payment" element={<Payment/>}/>
+      <Route path="/address" element={<AddressPage/>}/>
 
       
     </Routes>

@@ -14,7 +14,7 @@ const BagPage = () => {
       <section className="flex-grow container mx-auto px-4 py-8">
         <h2 className="text-3xl font-semibold mb-6 text-center">Items in Your Bag</h2>
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Bag Items Section */}
+          
           <div className="w-full md:w-2/3">
             {bag.length === 0 ? (
               <p className="text-gray-600 text-center">Your bag is empty</p>
