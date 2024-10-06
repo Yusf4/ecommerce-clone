@@ -7,7 +7,7 @@ import { BagContext } from '../components/contexts/BagContext';
 const BagPage = () => {
   const HOST = process.env.REACT_APP_BACKEND_URL;
   const { bag, updateQuantity, removeFromBag } = useContext(BagContext);
-
+  
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <Header />

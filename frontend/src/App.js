@@ -11,6 +11,7 @@ import LogoutPage from './pages/LogoutPage';
 import BagPage from './pages/BagPage';
 import Payment from './components/Payment';
 import AddressPage from './pages/AddressPage';
+import OrderPage from './components/OrderPage';
 function App() {
   const [flashMessage,setFlashMessage]=useState('');
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/logout" element={<LogoutPage/>}/>
       <Route path="/Bag" element={<BagPage/>}/>
       <Route path="/address" element={<AddressPage/>}/>
+      <Route path="/order" element={<OrderPage/>}/>
 
       
     </Routes>

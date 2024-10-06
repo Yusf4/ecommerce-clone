@@ -30,7 +30,7 @@ const AddressPage = () => {
         }
       });
       console.log(response.data.address_id);
-      localStorage.setItem('address',response.data.address_id)
+      localStorage.setItem('address_id',response.data.address_id)
      console.log("address created:"+response.data);
      navigate('/order');
    }

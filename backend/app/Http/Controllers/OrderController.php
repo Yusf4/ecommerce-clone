@@ -24,7 +24,7 @@ class OrderController extends Controller
             'status'=>'pending',
         ]); 
         foreach($request->bag as $item){
-            $product=Product::find($item['id']);
+            $product=Product::find($item['product']['id']);
             if($product){
                $order->products()->attach($product->id,[
                 'quantity'=>$item['quantity'],
