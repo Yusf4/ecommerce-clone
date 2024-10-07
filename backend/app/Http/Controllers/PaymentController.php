@@ -11,6 +11,7 @@ class PaymentController extends Controller
 {
     //
     public function createPayment(Request $request){
+       
         Stripe::setApiKey(env('STRIPE_SECRET'));
             
         try{
@@ -32,9 +33,10 @@ class PaymentController extends Controller
                 $order=Order::find($request->order_id);
                 $order->status='completed';
                 $order->save();
+                return response()->json(['success'=>true,'paymentIntent'=>$paymentIntent],201);
             }
-            return response()->json(['success'=>true,'paymentIntent'=>$paymentIntent]);
-            
+          
+           return response()->json(['success'=>false,'message'=>'Payment failed or requires further action.'],400); 
         }
         catch(\Exception $e){
             return response()->json(['error'=>$e->getMessage()],500);

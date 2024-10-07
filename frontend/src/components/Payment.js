@@ -4,6 +4,9 @@ import axios from 'axios';
 import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 const Payment = () => {
+  const[amount,setAmount]=useState(0);
+  const [paymentMethodId,setPaymentMethodId]=useState('');
+  
   const submit=async(e)=>{
     e.preventDefault();
   }
