@@ -20,9 +20,10 @@ class OrderController extends Controller
             $order=Order::create([
             'user_id'=>Auth::id(),
            'address_id'=>$request->address_id,
-            'total'=>$request->total,
+            'total'=>$request->totalPrice,
             'status'=>'pending',
         ]); 
+      
         foreach($request->bag as $item){
             $product=Product::find($item['product']['id']);
             if($product){

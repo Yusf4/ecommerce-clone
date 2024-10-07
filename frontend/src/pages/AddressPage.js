@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import OrderSummary from '../components/OrderSummary';
 import axios from 'axios';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { BagContext } from '../components/contexts/BagContext';
 const AddressPage = () => {
   const[addressLine1,setAddressLine1]=useState('');
   const[addressLine2,setAddressLine2]=useState('');
@@ -23,7 +24,8 @@ const AddressPage = () => {
         addressLine2,
         city,
         state,
-        country
+        country,
+
       },{
         headers:{
           Authorization:`Bearer ${token}`
@@ -32,6 +34,7 @@ const AddressPage = () => {
       console.log(response.data.address_id);
       localStorage.setItem('address_id',response.data.address_id)
      console.log("address created:"+response.data);
+     
      navigate('/order');
    }
    catch(error){

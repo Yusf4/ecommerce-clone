@@ -16,12 +16,19 @@ const createOrder=async()=>{
          console.log("id:"+item.product.id);
          console.log("item quantity:"+item.quantity);
       })
+      console.log({
+        address_id,
+        totalPrice,
+        bag
+      });
+      
       console.log("address:"+address_id);
-      console.log("bag:"+bag[0]['id']);
+      console.log("bag id:"+bag[0]['product']['id']);
       console.log("totalPrice"+totalPrice);
       console.log("token"+token);
    const response =await axios.post(`http://127.0.0.1:8000/api/order`,
     { 
+
       address_id,
       totalPrice,
       bag
