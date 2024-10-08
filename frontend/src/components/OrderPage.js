@@ -37,7 +37,9 @@ const createOrder=async()=>{
       Authorization:`Bearer ${token}`
      }
     });
+
    console.log("order created successfully"+response.data);
+   localStorage.setItem('order_id',response.data.order_id);
    navigate('/payment');
 
   }
