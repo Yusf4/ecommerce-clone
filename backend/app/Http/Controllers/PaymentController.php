@@ -17,11 +17,12 @@ class PaymentController extends Controller
         try{
             $request->validate([
                 'order_id' => 'required|exists:orders,id', // Ensure the order exists
-                'amount' => 'required|integer|min:1', // Ensure amount is valid
+                'amount' => 'required|numeric|min:0.01', // Ensure amount is valid
                 'paymentMethodId' => 'required|string', // Ensure payment method is valid
             ]);
+            $amountInCents=(int)($request->amount*100);
             $paymentIntent=PaymentIntent::create([
-                'amount'=>$request->amount,
+                'amount'=>$amountInCents,
                 'currency'=>'usd',
                 'description'=>'Payment for order #',
                 'payment_method'=>$request->paymentMethodId,

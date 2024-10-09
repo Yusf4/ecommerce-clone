@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import axios from "axios";
+import Header from "./Header";
 import { BagContext } from "./contexts/BagContext";
 import { useNavigate } from "react-router-dom";
   import { useEffect } from "react";
