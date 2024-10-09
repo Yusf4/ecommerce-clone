@@ -2,18 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Payment from './components/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import reportWebVitals from './reportWebVitals';
 import { BagProvider } from './components/contexts/BagContext';
 import { SearchProvider } from './components/contexts/SearchContext';
 import { AuthProvider } from './components/contexts/AuthContext';
-
+const key=process.env.REACT_APP_STRIPE_SECRET;
+const stripePromise = loadStripe(key);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <SearchProvider>
   <BagProvider>
 <AuthProvider>
     <React.StrictMode>
+    <Elements stripe={stripePromise}>
     <App />
+    </Elements>
   </React.StrictMode>
   </AuthProvider>
  

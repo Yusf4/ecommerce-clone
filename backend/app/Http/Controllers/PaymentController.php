@@ -11,10 +11,15 @@ class PaymentController extends Controller
 {
     //
     public function createPayment(Request $request){
-       
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
             
         try{
+            $request->validate([
+                'order_id' => 'required|exists:orders,id', // Ensure the order exists
+                'amount' => 'required|integer|min:1', // Ensure amount is valid
+                'paymentMethodId' => 'required|string', // Ensure payment method is valid
+            ]);
             $paymentIntent=PaymentIntent::create([
                 'amount'=>$request->amount,
                 'currency'=>'usd',
@@ -38,7 +43,14 @@ class PaymentController extends Controller
           
            return response()->json(['success'=>false,'message'=>'Payment failed or requires further action.'],400); 
         }
+        catch (\Stripe\Exception\CardException $e) {
+            // Handle card errors
+            \Log::error('Stripe Card Error: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
         catch(\Exception $e){
+
+            \Log::error('Payment Error:'.$e->getMessage());
             return response()->json(['error'=>$e->getMessage()],500);
         }
     }

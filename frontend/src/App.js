@@ -10,9 +10,12 @@ import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import BagPage from './pages/BagPage';
 import Payment from './components/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import AddressPage from './pages/AddressPage';
 import OrderPage from './components/OrderPage';
 function App() {
+  
   const [flashMessage,setFlashMessage]=useState('');
   return (
    <Router>
