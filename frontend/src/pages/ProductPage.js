@@ -57,25 +57,7 @@ const ProductPage=()=>{
 
   <Addbutton product={product} addToBag={addToBag} isProductPage={true} className="mb-8" />
 
-  <section className="w-full mt-8">
-    <h2 className="text-2xl font-semibold mb-4">Items in your Bag</h2>
 
-    {bag.length === 0 ? (
-      <p className="text-gray-600">Your bag is empty</p>
-    ) : (
-      <ul className="space-y-2">
-        {bag.map((item, index) => (
-          <li
-            key={index}
-            className="flex justify-between items-center p-4 border border-gray-200 rounded-lg"
-          >
-            <span>{item.name}</span>
-            <span className="font-semibold">${item.price}</span>
-          </li>
-        ))}
-      </ul>
-    )}
-  </section>
 </div>
 
             </main> 

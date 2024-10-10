@@ -14,6 +14,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import AddressPage from './pages/AddressPage';
 import OrderPage from './components/OrderPage';
+import AboutUsPage from './pages/AboutUsPage';
 function App() {
   
   const [flashMessage,setFlashMessage]=useState('');
@@ -31,7 +32,7 @@ function App() {
       <Route path="/address" element={<AddressPage/>}/>
       <Route path="/order" element={<OrderPage/>}/>
       <Route path="/payment" element={<Payment/>}/>
-      
+      <Route path="/about" element={<AboutUsPage/>}/>
     </Routes>
    </Router>
   );
