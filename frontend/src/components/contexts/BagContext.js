@@ -9,13 +9,14 @@ export const BagProvider=({children})=>{
     setBag((prevBag)=>{
       const existingItem=prevBag.find(item=>item.product.id===product.id);
     if(existingItem){
-      return prevBag.map(item=>
+      return  prevBag.map(item=>
         item.product.id===product.id 
         ?{...item,quantity:item.quantity+1}
         :item
       );
+     
     }else{
-      return [...prevBag,{product,quantity:1}];
+       return [...prevBag,{product,quantity:1}];
     }
     });
      
@@ -36,10 +37,28 @@ export const BagProvider=({children})=>{
     );
     };
     useEffect(()=>{
+   
+     const sessionFlag=sessionStorage.getItem('sessionActive');
+      if(!sessionFlag){
+        localStorage.removeItem('bag');
+        sessionStorage.setItem('sessionActive','true');
+      }
+
+      const savedBag=JSON.parse(localStorage.getItem('bag'));
+      if(savedBag){
+        setBag(savedBag);
+      }
+
+    },[]);
+    useEffect(()=>{
+      
       const totalP=bag.reduce((total,item)=>total+(item.quantity*item.product.price),0);
       setTotalPrice(totalP);
       const totalItems=bag.reduce((total,item)=>total+item.quantity,0);
  setItems(totalItems);
+if (bag.length >0){
+  localStorage.setItem('bag',JSON.stringify(bag));
+}
     },[bag]);
    
     return (
