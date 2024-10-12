@@ -46,7 +46,7 @@ const AboutUsPage = () => {
 
                         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-10 mb-4">Join Our Community</h2>
                         <p className="text-base md:text-lg text-gray-700 mb-6">
-                            More than just a store, <strong>[Your Brand Name]</strong> is a community of fashion lovers who appreciate great design and value.
+                            More than just a store, <strong>DressNest</strong> is a community of fashion lovers who appreciate great design and value.
                             Follow us on social media for style inspiration, exclusive deals, and the latest product drops.
                         </p>
                         
