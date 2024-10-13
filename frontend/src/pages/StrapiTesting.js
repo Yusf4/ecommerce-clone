@@ -6,7 +6,7 @@ const StrapiTesting = () => {
 
   useEffect(() => {
     // Fetch blogs from Strapi API
-    axios.get('http://localhost:1337/blogs')
+    axios.get('http://localhost:1337/blog')
       .then(response => {
         setBlogs(response.data);
       })
