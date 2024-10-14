@@ -6,13 +6,22 @@ const StrapiTesting = () => {
 
   useEffect(() => {
     // Fetch blogs from Strapi API
-    axios.get('http://localhost:1337/blog')
-      .then(response => {
-        setBlogs(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching blogs from Strapi:', error);
-      });
+    const fetchBlog=async()=>{
+try{
+   const response=await axios.get('http://localhost:1337/api/blogs')
+ console.log("data:"+response.data);
+ console.log("blogs data:",response.data.data);
+  console.log("type:"+typeof(response.data));
+ setBlogs(response.data.data);
+}
+catch(error){
+  console.error('Error fetching blogs from Strapi:', error);
+}
+    }
+    fetchBlog();
+   
+      
+     
   }, []);
 
   return (
@@ -21,8 +30,8 @@ const StrapiTesting = () => {
       <ul>
         {blogs.map(blog => (
           <li key={blog.id}>
-            <h2>{blog.title}</h2>
-            <p>{blog.body}</p>
+            <h2>{blog.name}</h2>
+            <p>{blog.date}</p>
           </li>
         ))}
       </ul>
