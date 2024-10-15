@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MyauthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DebuggingController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::get('/contact',[ContactController::class,'index']);
 Route::post('/testLogin',[MyauthController::class,'login'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
-
+Route::get('/strapi',[DebuggingController::class,'creating']);
 Route::post('/testLog',function(){
     return "hello world";
 });

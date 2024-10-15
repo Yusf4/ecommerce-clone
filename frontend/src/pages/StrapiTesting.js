@@ -8,10 +8,7 @@ const StrapiTesting = () => {
     // Fetch blogs from Strapi API
     const fetchBlog=async()=>{
 try{
-   const response=await axios.get('http://localhost:1337/api/blogs')
- console.log("data:"+response.data);
- console.log("blogs data:",response.data.data);
-  console.log("type:"+typeof(response.data));
+   const response=await axios.get('http://localhost:1337/api/blogs');
  setBlogs(response.data.data);
 }
 catch(error){
