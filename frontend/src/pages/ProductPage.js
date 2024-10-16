@@ -44,7 +44,7 @@ const ProductPage=()=>{
   </h1>
 
   <img
-    src={HOST + product.image}
+    src={product.image}
     alt={product.name}
     className="w-full max-w-md mb-6 rounded-lg shadow-lg"
   />

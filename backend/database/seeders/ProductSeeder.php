@@ -19,20 +19,34 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         //  
-     $client=new Client();
+     /*$client=new Client();
+     $cacheKey='product_images_cache';
      
-   $response=$client->get('http://localhost:1337/api/products');
+     $strapiBaseUrl = 'http://localhost:1337';
+   $response=$client->get('http://localhost:1337/api/products?populate=image');
  $data=json_decode($response->getBody()->getContents(),true);
         if(isset($data['data'])){
         foreach($data['data'] as $productData){
         $existingProduct=Product::where('name',$productData['name'])->first();
+        $imageUrl=null;
         if(!$existingProduct){
+            $imageUrl = $productData['image']['formats']['small']['url'] ?? $productData['image']['url'] ?? null;
+
+            
+            $imageUrl = null;
+            if (!empty($productData['image'])) {
+                $imageUrl = $productData['image'][0]['url'] ?? null;
+                if ($imageUrl) {
+                    $imageUrl = $strapiBaseUrl . $imageUrl;
+                }
+            }
+           
             Product::create([
                 'name'=>$productData['name'],
                 'description'=>$productData['description']?? 'No description available',
                 'price'=>$productData['price']?? 0,
                 'stock'=>$productData['stock'] ?? 0,
-                'image'=>$productData['image'] ?? 'default.jpg',
+                'image'=>$imageUrl,
                 'category_id'=>$productData['category_id']  ?? 1,
             ]);
         }
@@ -41,7 +55,7 @@ class ProductSeeder extends Seeder
 }
     else{
         echo "No products found in Strapi Api";
-    }
+    }*/
         
 
   

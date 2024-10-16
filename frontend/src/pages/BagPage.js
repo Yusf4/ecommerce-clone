@@ -28,7 +28,7 @@ const BagPage = () => {
                     {/* Product Image */}
                     <div className="w-24 h-24 flex-shrink-0">
                       <img
-                        src={HOST + item.product.image}
+                        src={item.product.image}
                         alt={item.product.name}
                         className="w-full h-full object-cover rounded-md"
                       />
