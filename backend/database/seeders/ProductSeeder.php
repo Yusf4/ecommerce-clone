@@ -19,11 +19,11 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         //  
-     /*$client=new Client();
+     $client=new Client();
      $cacheKey='product_images_cache';
      
      $strapiBaseUrl = 'http://localhost:1337';
-   $response=$client->get('http://localhost:1337/api/products?populate=image');
+   $response=$client->get('http://localhost:1337/api/products?populate[category]=*&populate[image]=*');
  $data=json_decode($response->getBody()->getContents(),true);
         if(isset($data['data'])){
         foreach($data['data'] as $productData){
@@ -47,7 +47,7 @@ class ProductSeeder extends Seeder
                 'price'=>$productData['price']?? 0,
                 'stock'=>$productData['stock'] ?? 0,
                 'image'=>$imageUrl,
-                'category_id'=>$productData['category_id']  ?? 1,
+                'category_id'=>$productData['category']['id']?? 1,
             ]);
         }
       
@@ -55,7 +55,7 @@ class ProductSeeder extends Seeder
 }
     else{
         echo "No products found in Strapi Api";
-    }*/
+    }
         
 
   

@@ -21,7 +21,7 @@ const OrderSummary = () => {
         {bag.map((item, index) => (
           <li key={index} className="flex items-center">
             <img
-              src={HOST + item.product.image}
+              src={item.product.image}
               alt={item.product.name}
               className="w-16 h-16 object-cover rounded-md"
             />

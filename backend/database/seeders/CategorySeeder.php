@@ -38,6 +38,7 @@ class CategorySeeder extends Seeder
             }
            
             Category::create([
+                'id'=>$categoryData['id'],
                 'name'=>$categoryData['name'],
                 'description'=>$categoryData['description']?? 'No description available',
                 'image'=>$imageUrl,
