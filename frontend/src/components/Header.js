@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { BagContext } from './contexts/BagContext';
-import { SearchContext } from './contexts/SearchContext';
-import AuthContext from './contexts/AuthContext';
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { BagContext } from "./contexts/BagContext";
+import { SearchContext } from "./contexts/SearchContext";
+import AuthContext from "./contexts/AuthContext";
 
 const Header = () => {
   const url = process.env.REACT_APP_BACKEND_URL;
@@ -12,11 +12,7 @@ const Header = () => {
   const { items } = useContext(BagContext);
   const [categories, setCategories] = useState([]);
   const { setQuery } = useContext(SearchContext);
-  const [inputValue, setInputValue] = useState('');
-
-  const searchQuery = () => {
-    setQuery(inputValue);
-  };
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const getCategories = async () => {
@@ -24,117 +20,122 @@ const Header = () => {
         const response = await axios.get(`${url}api/categories`);
         setCategories(response.data);
       } catch (error) {
-        console.log('Failed categories fetching for header');
+        console.log("Failed categories fetching for header");
       }
     };
     getCategories();
   }, []);
 
+  const searchQuery = (query) => {
+    setQuery(query);
+  };
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Trigger the search when the input changes (debounced)
+    if (value.trim()) {
+      searchQuery(value);
+    } else {
+      setQuery(''); // Clear results if input is empty
+    }
+  };
+  const handleKeyDown = (e) => {
+    // Trigger the search when Enter key is pressed
+    if (e.key === "Enter" || inputValue.trim() ) {
+      searchQuery(inputValue);
+    }
+  };
+
+
   const scrollCategories = (direction) => {
-    const container = document.getElementById('category-container');
-    const scrollAmount = direction === 'left' ? -300 : 300;
+    const container = document.getElementById("category-container");
+    const scrollAmount = direction === "left" ? -300 : 300;
     container.scrollBy({
       left: scrollAmount,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   return (
-    <header className="bg-blue-700 p-4">
-      <nav className="container mx-auto flex justify-between items-center">
-        {/* Left-side navigation links */}
-        <div className="flex space-x-6">
-          <Link to="/" className="text-white hover:text-gray-400">Home</Link>
-          <Link to="/about" className="text-white hover:text-gray-400">About Us</Link>
-        </div>
-
-        {/* Category scrolling area */}
-        <div className="flex-1 relative">
-          {categories.length > 0 && (
-            <div className="flex items-center">
-              {/* Category container with horizontal scroll */}
-              <div
-                id="category-container"
-                className="flex space-x-4 overflow-x-auto scrollbar-hide py-2 mx-4"
-              >
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    to={`/categories/${category.name}/${category.id}`}
-                    className="text-white hover:text-gray-400 whitespace-nowrap"
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-
-              {/* Scroll Buttons */}
-              <div className="flex items-center">
-                {/* Left Scroll Button */}
-                <button
-                  onClick={() => scrollCategories('left')}
-                  className=" bg-gray-400 bg-opacity-50 text-white w-8 h-8 flex items-center justify-center rounded-full shadow-lg hover:bg-opacity-80 focus:outline-none"
-                >
-                  &lt;
-                </button>
-
-                {/* Right Scroll Button */}
-                <button
-                  onClick={() => scrollCategories('right')}
-                  className="bg-gray-400 bg-opacity-50 text-white w-8 h-8 flex items-center justify-center rounded-full shadow-lg hover:bg-opacity-80 focus:outline-none ml-2"
-                >
-                  &gt;
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Right-side search, bag icon, and buttons */}
+    <header className="bg-white shadow-md sticky top-0  z-50 ">
+      <nav className="container mx-auto flex justify-between items-center py-4 px-6">
+        {/* Left-side logo and categories */}
         <div className="flex items-center space-x-6">
-          {/* Search input and button */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Search..."
-              className="px-3 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              onClick={searchQuery}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Search
-            </button>
-          </div>
-
-          {/* Bag icon with counter */}
-          <Link to="/Bag">
-            <button className="relative">
-              <img className="w-6 h-6 filter invert" src={icon} alt="Bag" />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {items}
-              </span>
-            </button>
+          <Link to="/" className="text-2xl font-semibold text-gray-800">
+            <span className="font-bold">Eshop</span>
           </Link>
 
-          {/* Login and Register buttons */}
+          <div className="flex overflow-x-auto space-x-6" id="category-container">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                to={`/categories/${category.name}/${category.id}`}
+                className="text-gray-800 hover:bg-gray-200 py-2 px-4 rounded-md whitespace-nowrap"
+              >
+                {category.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Scroll buttons */}
+          <div className="flex items-center">
+            <button
+              onClick={() => scrollCategories("left")}
+              className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full ml-2"
+            >
+              &lt;
+            </button>
+
+            <button
+              onClick={() => scrollCategories("right")}
+              className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full ml-2"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+
+        {/* Centered search bar */}
+        <div className="flex-1 flex justify-center">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange} // Trigger search as user types
+            onKeyDown={handleKeyDown} // Trigger search when Enter key is pressed
+            placeholder="Search for products, categories, brands..."
+            className="px-4 py-2 rounded-full border border-gray-300 w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Right-side user account and cart */}
+        <div className="flex items-center space-x-6">
+          {/* User Authentication */}
           {user ? (
             <Link
               to="/logout"
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none"
             >
               Logout
             </Link>
           ) : (
             <Link
               to="/register"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
             >
               Sign in
             </Link>
           )}
+
+          {/* Shopping Bag Icon */}
+          <Link to="/Bag">
+            <button className="relative">
+              <img className="w-6 h-6" src={icon} alt="Bag" />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {items}
+              </span>
+            </button>
+          </Link>
         </div>
       </nav>
     </header>
