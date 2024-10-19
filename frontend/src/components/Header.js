@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useRef,useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { BagContext } from "./contexts/BagContext";
@@ -13,7 +13,9 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const { setQuery } = useContext(SearchContext);
   const [inputValue, setInputValue] = useState("");
-
+  const[dropdownState,setDropdownState]=useState(false);
+  const dropdownRef=useRef(null);
+  const toggleDropdown = () =>setDropdownState(!dropdownState);
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -25,6 +27,21 @@ const Header = () => {
     };
     getCategories();
   }, []);
+  useEffect(()=>{
+    const handleClickOutside = (event)=>{
+      if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+        setDropdownState(false);
+      } 
+    };
+    document.addEventListener("mousedown",handleClickOutside);
+  
+    return ()=>{
+      document.removeEventListener("mousedown",handleClickOutside)
+    }
+  },[])
+   
+  
+ 
 
   const searchQuery = (query) => {
     setQuery(query);
@@ -64,24 +81,60 @@ const Header = () => {
     setStartIndex(newStartIndex);
   };
 
- /* const scrollCategories = (direction) => {
-    const container = document.getElementById("category-container");
-    const scrollAmount = direction === "left" ? -300 : 300;
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  };*/
+
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50 ">
     <nav className="container mx-auto flex justify-between items-center py-4 px-6">
-      {/* Left-side logo and categories */}
+      {/* Left-side logo and categories 
       <div className="flex items-center space-x-6">
         <Link to="/" className="text-2xl font-semibold text-gray-800">
           <span className="font-bold">Eshop</span>
-        </Link>
-  
+        </Link>*/}
+         {/* Left-side dropdown for categories */}
+      <div className="flex items-center space-x-6">
+        {/* Dropdown for categories */}
+        <div className="relative" ref={dropdownRef}>
+          <button 
+          onClick={toggleDropdown}
+          className="text-2xl font-semibold text-gray-800 flex items-center">
+            <span className="font-bold">Categories</span>
+            <svg
+              className="ml-2 w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          {/* Dropdown Menu */}
+        {dropdownState &&
+ <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+ <ul className="py-1">
+   {categories.map((category) => (
+     <li key={category.id}>
+       <Link
+         to={`/categories/${category.name}/${category.id}`}
+        onClick={()=>setDropdownState(false)}
+         className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+       >
+         {category.name}
+       </Link>
+     </li>
+   ))}
+ </ul>
+</div>
+
+        } 
+  </div>
         {/* Categories container */}
         <div className="relative flex items-center">
           {/* Display the sliced categories based on startIndex */}
