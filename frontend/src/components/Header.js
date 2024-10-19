@@ -84,21 +84,22 @@ const Header = () => {
 
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50 ">
+    <header className="bg-white shadow-md sticky top-0 z-50">
     <nav className="container mx-auto flex justify-between items-center py-4 px-6">
-      {/* Left-side logo and categories 
+      
+      {/* Left-side logo (website title) and categories */}
       <div className="flex items-center space-x-6">
-        <Link to="/" className="text-2xl font-semibold text-gray-800">
-          <span className="font-bold">Eshop</span>
-        </Link>*/}
-         {/* Left-side dropdown for categories */}
-      <div className="flex items-center space-x-6">
-        {/* Dropdown for categories */}
+        {/* Website Title */}
+        <Link to="/" className="text-3xl font-bold text-gray-800">
+          Eshop
+        </Link>
+  
+        {/* Dropdown for categories (with smaller font) */}
         <div className="relative" ref={dropdownRef}>
           <button 
-          onClick={toggleDropdown}
-          className="text-2xl font-semibold text-gray-800 flex items-center">
-            <span className="font-bold">Categories</span>
+            onClick={toggleDropdown}
+            className="text-sm font-medium text-gray-800 flex items-center">
+            <span>Categories</span>
             <svg
               className="ml-2 w-4 h-4"
               fill="none"
@@ -114,62 +115,62 @@ const Header = () => {
               />
             </svg>
           </button>
-
+  
           {/* Dropdown Menu */}
-        {dropdownState &&
- <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
- <ul className="py-1">
-   {categories.map((category) => (
-     <li key={category.id}>
-       <Link
-         to={`/categories/${category.name}/${category.id}`}
-        onClick={()=>setDropdownState(false)}
-         className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-       >
-         {category.name}
-       </Link>
-     </li>
-   ))}
- </ul>
-</div>
-
-        } 
-  </div>
-        {/* Categories container */}
-        <div className="relative flex items-center">
-          {/* Display the sliced categories based on startIndex */}
-          <div className="flex overflow-x-auto space-x-6" id="category-container">
-            {categories.slice(startIndex, startIndex + visibleCategoriesCount).map((category) => (
-              <Link
-                key={category.id}
-                to={`/categories/${category.name}/${category.id}`}
-                className="text-gray-800 hover:bg-gray-200 py-2 px-4 rounded-md whitespace-nowrap"
-              >
-                {category.name}
-              </Link>
-            ))}
-          </div>
+          {dropdownState && (
+            <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+              <ul className="py-1 text-sm">
+                {categories.map((category) => (
+                  <li key={category.id}>
+                    <Link
+                      to={`/categories/${category.name}/${category.id}`}
+                      onClick={() => setDropdownState(false)}
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    >
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
   
-          {/* Scroll buttons (positioned inside the category container) */}
-          <div className="flex flex-shrink-0 space-x-2 ml-2">
-            {/* Left scroll button */}
-            <button
-              onClick={() => scrollCategories("left")}
-              className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full"
-              disabled={startIndex === 0} // Disable when at the start
+      {/* Scrollable Categories section */}
+      <div className="relative flex items-center ml-6">
+        {/* Display the sliced categories based on startIndex */}
+        <div className="flex overflow-x-auto space-x-6" id="category-container">
+          {categories.slice(startIndex, startIndex + visibleCategoriesCount).map((category) => (
+            <Link
+              key={category.id}
+              to={`/categories/${category.name}/${category.id}`}
+              className="text-gray-800 hover:bg-gray-200 py-2 px-4 rounded-md whitespace-nowrap"
             >
-              &lt;
-            </button>
+              {category.name}
+            </Link>
+          ))}
+        </div>
   
-            {/* Right scroll button */}
-            <button
-              onClick={() => scrollCategories("right")}
-              className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full"
-              disabled={startIndex + visibleCategoriesCount >= categories.length} // Disable at the end
-            >
-              &gt;
-            </button>
-          </div>
+        {/* Scroll buttons (inside the category container) */}
+        <div className="flex flex-shrink-0 space-x-2 ml-2">
+          {/* Left scroll button */}
+          <button
+            onClick={() => scrollCategories("left")}
+            className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full"
+            disabled={startIndex === 0} // Disable when at the start
+          >
+            &lt;
+          </button>
+  
+          {/* Right scroll button */}
+          <button
+            onClick={() => scrollCategories("right")}
+            className="text-gray-800 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full"
+            disabled={startIndex + visibleCategoriesCount >= categories.length} // Disable at the end
+          >
+            &gt;
+          </button>
         </div>
       </div>
   
