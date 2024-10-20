@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const {user,login}=useContext(AuthContext);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [errorMessage,setErrorMessage]=useState('');
+  
  const navigate=useNavigate();
  useEffect(()=>{
   if(user){
@@ -19,15 +21,17 @@ const LoginPage = () => {
   
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
     try {
-      
+   
     await login(credentials);
     console.log("logged in successfully");
     } catch (error) {
+      setErrorMessage(`Account doesn't exist,please check your credentials`);
       console.error('CSRF Cookie Error:', error);
     }
   };
@@ -39,6 +43,11 @@ const LoginPage = () => {
     <Header />
 
     <div className="flex flex-col items-center justify-center flex-grow">
+    {errorMessage &&(
+         <div className="bg-red-100 text-red-600 p-2 mb-4 text-center rounded-md">
+         {errorMessage}
+     </div>
+    ) }
       <form 
         onSubmit={handleSubmit} 
         className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md space-y-6"
