@@ -23,9 +23,8 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::middleware(['api'])->group(function () {
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+   
+
     Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{id}',[ProductController::class,'show']);
@@ -38,6 +37,9 @@ Route::middleware(['api'])->group(function () {
     Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', function (Request $request) {
         return $request->user();    });
+    Route::middleware('admin')->group(function(){
+    Route::post('/dashboard',[DashboardController::class,'show']);
+    });
     Route::post('/address',[AddressController::class,'createAddress']);
     Route::post('/testLogout',[MyauthController::class,'logout']);
     Route::post('/payment',[PaymentController::class,'createPayment']);

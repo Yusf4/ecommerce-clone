@@ -17,6 +17,7 @@ import OrderPage from './components/OrderPage';
 import AboutUsPage from './pages/AboutUsPage';
 import PrivateRoute from './pages/PrivateRoute';
 import StrapiTesting from './pages/StrapiTesting';
+import DashboardPage from './pages/DashboardPage';
 function App() {
   
   const [flashMessage,setFlashMessage]=useState('');
@@ -37,6 +38,7 @@ function App() {
       <Route path="/address" element={<AddressPage/>}/>
       <Route path="/order" element={<OrderPage/>}/>
       <Route path="/payment" element={<Payment/>}/>
+      <Route path="/dashboard" element={<DashboardPage/>}/>
       <Route path="/about" element={<AboutUsPage/>}/>
     </Routes>
    </Router>
