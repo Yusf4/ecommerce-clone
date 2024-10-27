@@ -15,13 +15,17 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth:user()->role=='admin'){
-          return $next($request);
-    }  
-    else{
-        return response()->json(['message'=>'unauthorized',403]);
+        return $next($request);
     }
-        }
+    /*public function handle(Request $request, Closure $next): Response
+    {
+        if(Auth::check() && Auth:user()->role=='admin'){
+            return $next($request);
+      }  
+      else{
+          return response()->json(['message'=>'unauthorized',403]);
+      }
+        }*/
     }
         
 

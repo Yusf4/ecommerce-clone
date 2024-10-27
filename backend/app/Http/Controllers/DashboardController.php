@@ -24,10 +24,29 @@ class DashboardController extends Controller
     return response()->json($orders,200);
 }
     public function deleteUser(Request $request){
+        $id=$request->id;
+        $user=User::find($id);
+        if($user){
+            $user->delete();
+            return response()->json(['message'=>'User deleted successfully']);
+
+        }
+        else{
+            return response()->json(['message'=>'User not found']);
+        }
+
        
     }
     public function deleteOrder(Request $request){
-
+      $id= $request->id;
+     $order=Order::find($id);
+     if($order){
+        $order->delete();
+        return response()->json(['message'=>'order delete successfully']);
+     }
+     else{
+        return response()->json(['message'=>'order not found']);
+     }
     }
 
 }
