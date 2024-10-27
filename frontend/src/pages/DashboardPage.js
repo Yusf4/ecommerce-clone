@@ -15,7 +15,12 @@ const DashboardPage=()=>{
 
     const fetchUsers=async()=>{
         try{
-             const response=await axios.post(`${url}+api/users`); 
+          const token=localStorage.getItem('authToken');
+             const response=await axios.post(`${url}api/users`,{},{
+              headers:{
+                Authorization:`Bearer ${token}`
+              }
+             }); 
              console.log("users fetched:"+response.data);
              setUsers(response.data);
         }
