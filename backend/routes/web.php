@@ -6,6 +6,7 @@ use App\Http\Controllers\MyauthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DebuggingController;
+use App\Http\Controllers\DashboardController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::get('/categories/{id}',[CategoryController::class,'show']);
 Route::get('/',[ProductController::class,'index']);
 Route::get('/categories',[CategoryController::class,'index']);
 Route::get('/contact',[ContactController::class,'index']);
+Route::get('/users',[DashboardController::class,'show']);
 Route::post('/testLogin',[MyauthController::class,'login'])->name('login');
 Route::get('/user',[MyauthController::class,'user']);
 Route::get('/registertest',[MyauthController::class,'testRegister'])->name('register');
