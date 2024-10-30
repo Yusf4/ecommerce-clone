@@ -15,6 +15,7 @@ class DashboardController extends Controller
        return response()->json(['users'=>$users]);
         
     }
+   
     public function showOrders(Request $request){
        $id=$request->id;
     $orders=Order::where('user_id',$id)->get();
@@ -47,6 +48,13 @@ class DashboardController extends Controller
      else{
         return response()->json(['message'=>'order not found']);
      }
+    }
+    public function changeRole(Request $request){
+        $id=$request->id;
+        $user=User::find($id);
+        $user->role=$request->input('role');
+        $user->save();
+        return response()->json(['message'=>'User role Updated successfully','user'=>$user]);
     }
 
 }

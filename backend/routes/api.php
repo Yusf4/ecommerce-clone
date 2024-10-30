@@ -40,6 +40,8 @@ Route::middleware(['api'])->group(function () {
         return $request->user();    });
       
     Route::post('/users',[DashboardController::class,'show']);
+    Route::post('/role',[DashboardController::class,'changeRole']);
+    Route::post('/delete',[DashboardController::class,'delete']);
     Route::post('/address',[AddressController::class,'createAddress']);
     Route::post('/testLogout',[MyauthController::class,'logout']);
     Route::post('/payment',[PaymentController::class,'createPayment']);

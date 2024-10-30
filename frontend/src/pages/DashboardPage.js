@@ -4,11 +4,24 @@ import axios from "axios";
 const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
-  const DeleteUser=()=>{
-   
+  const DeleteUser=async()=>{
+   const response=await axios.post(`${url}api/delete`,{
+    id
+   },{
+    headers:{
+      Authorization:`Bearer ${token}`,
+    }
+   })
   }
-  const changeRole=()=>{
-
+  const changeRole=async()=>{
+    
+   const response=await axios.post(`${url}api/role`,{
+    role
+   },{
+    headers:{
+      Authorization:`Bearer ${token}`,
+    }
+   })
   }
 
    useEffect(()=>{
@@ -87,8 +100,6 @@ const DashboardPage=()=>{
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
-                        <option value="moderator">Moderator</option>
-                        {/* Add more roles as needed */}
                       </select>
                     </td>
                   </tr>
