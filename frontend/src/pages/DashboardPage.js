@@ -4,24 +4,28 @@ import axios from "axios";
 const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
-  const DeleteUser=async()=>{
+  const DeleteUser=async(userId)=>{
    const response=await axios.post(`${url}api/delete`,{
-    id
+    id:userId
    },{
     headers:{
       Authorization:`Bearer ${token}`,
     }
    })
+   setUsers((prevUsers)=>prevUsers.filter((user)=>user.id!==userId))
   }
-  const changeRole=async()=>{
+  const changeRole=async(userId,newRole)=>{
+    
     
    const response=await axios.post(`${url}api/role`,{
-    role
+    id:userId,
+    role:newRole
    },{
     headers:{
       Authorization:`Bearer ${token}`,
     }
    })
+
   }
 
    useEffect(()=>{
