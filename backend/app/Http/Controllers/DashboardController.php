@@ -52,7 +52,7 @@ class DashboardController extends Controller
     public function changeRole(Request $request){
         $id=$request->id;
         $user=User::find($id);
-        $user->role=$request->input('role');
+        $user->role=$request->role;
         $user->save();
         return response()->json(['message'=>'User role Updated successfully','user'=>$user]);
     }

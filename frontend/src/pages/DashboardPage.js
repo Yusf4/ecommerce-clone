@@ -4,6 +4,7 @@ import axios from "axios";
 const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
+  const token=localStorage.getItem('authToken');
   const DeleteUser=async(userId)=>{
    const response=await axios.post(`${url}api/delete`,{
     id:userId
@@ -32,7 +33,6 @@ const DashboardPage=()=>{
 
     const fetchUsers=async()=>{
         try{
-          const token=localStorage.getItem('authToken');
              const response=await axios.post(`${url}api/users`,{},{
               headers:{
                 Authorization:`Bearer ${token}`
@@ -102,7 +102,7 @@ const DashboardPage=()=>{
                         defaultValue={user.role}
                         className="bg-gray-200 text-gray-700 py-2 px-3 rounded"
                       >
-                        <option value="user">User</option>
+                        <option value="customer">customer</option>
                         <option value="admin">Admin</option>
                       </select>
                     </td>
