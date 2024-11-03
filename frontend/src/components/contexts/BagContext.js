@@ -62,7 +62,7 @@ if (bag.length >0){
     },[bag]);
    
     return (
-        <BagContext.Provider value={{bag,addToBag,items,updateQuantity,removeFromBag,totalPrice}}>
+        <BagContext.Provider value={{bag,setBag,addToBag,items,updateQuantity,removeFromBag,totalPrice}}>
           {children}
         </BagContext.Provider>
     )

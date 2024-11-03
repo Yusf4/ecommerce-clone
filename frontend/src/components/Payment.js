@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import React from 'react';
 import { CardElement, useStripe, useElements,Elements} from '@stripe/react-stripe-js';
 import axios from 'axios';
+import { useEffect } from 'react';
 import Header from "./Header";
 import { useNavigate } from 'react-router-dom';
 import { BagContext } from './contexts/BagContext';
@@ -10,11 +11,14 @@ const Payment = () => {
   const stripe=useStripe();
   const token=localStorage.getItem('authToken');
   const elements=useElements();
+  const {setBag}=useContext(BagContext);
   const[error,setError]=useState(null);
   const[success,setSuccess]=useState(false);
   const[loading,setLoading]=useState(false);
   const {totalPrice}=useContext(BagContext);
   const order_id=localStorage.getItem('order_id');
+  const navigate=useNavigate();
+
   const handleSubmit=async(e)=>{
     e.preventDefault();
     setLoading(true);
@@ -59,6 +63,10 @@ if(success){
   setSuccess(true);
   setError(null);
   alert('payment successful');
+  setSuccess(false);
+  setBag([]);
+  navigate('/'); 
+ 
   console.log(response.data);
 }
 else{

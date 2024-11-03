@@ -18,6 +18,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import PrivateRoute from './pages/PrivateRoute';
 import StrapiTesting from './pages/StrapiTesting';
 import DashboardPage from './pages/DashboardPage';
+import UserOrderPage from './pages/UserOrderPage';
 function App() {
   
   const [flashMessage,setFlashMessage]=useState('');
@@ -36,9 +37,10 @@ function App() {
       <Route path="/logout" element={<LogoutPage/>}/>
       <Route path="/Bag" element={<BagPage/>}/>
       <Route path="/address" element={<AddressPage/>}/>
-      <Route path="/order" element={<OrderPage/>}/>
+      <Route path="/order" element={<OrderPage/>}/>   
       <Route path="/payment" element={<Payment/>}/>
       <Route path="/dashboard" element={<DashboardPage/>}/>
+      <Route path="/dashboard/orders/:id" element={<UserOrderPage/>}/>
       <Route path="/about" element={<AboutUsPage/>}/>
     </Routes>
    </Router>
