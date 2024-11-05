@@ -13,20 +13,21 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+   public function handle(Request $request, Closure $next): Response
     {
         return $next($request);
     }
+    
     /*
-    public function handle(Request $request, Closure $next): Response
+   public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role=='admin'){
+        // Assuming 'role' is a field on the users table where 'admin' is the value for admin users
+        if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
-      }  
-      else{
-          return response()->json(['message'=>'unauthorized',403]);
-      }
-        }*/
+        }
+
+        return redirect('/'); // Redirect to a specific page if the user is not an admin
+    }*/
     }
         
 

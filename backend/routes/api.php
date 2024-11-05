@@ -36,13 +36,19 @@ Route::middleware(['api'])->group(function () {
     Route::post('/register',[MyauthController::class,'register']);
     Route::post('/testLogin', [MyauthController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function(){
-        Route::get('/user', function (Request $request) {
-        return $request->user();    });
-      
-    Route::post('/users',[DashboardController::class,'show']);
-    Route::post('/role',[DashboardController::class,'changeRole']);
-    Route::post('/delete',[DashboardController::class,'deleteUser']);
-    Route::post('/showOrder',[DashboardController::class,'showOrders']);
+    Route::get('/user', function (Request $request) {
+        return $request->user(); 
+         });
+   Route::middleware(['admin'])->group(function(){ 
+   Route::post('/users',[DashboardController::class,'show']);
+   Route::post('/role',[DashboardController::class,'changeRole']);
+   Route::post('/delete',[DashboardController::class,'deleteUser']);
+   Route::post('/showOrder',[DashboardController::class,'showOrders']);
+   });
+  //  Route::post('/users',[DashboardController::class,'show']);
+    
+
+    
     Route::post('/address',[AddressController::class,'createAddress']);
     Route::post('/testLogout',[MyauthController::class,'logout']);
     Route::post('/payment',[PaymentController::class,'createPayment']);

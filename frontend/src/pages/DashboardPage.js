@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
+  const navigate=useNavigate();
   const token=localStorage.getItem('authToken');
+  if(token===null){
+navigate('/');
+  }
   const DeleteUser=async(userId)=>{
    const response=await axios.post(`${url}api/delete`,{
     id:userId
