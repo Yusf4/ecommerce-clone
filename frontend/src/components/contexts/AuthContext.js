@@ -21,7 +21,8 @@ export  const AuthProvider=({children})=>{
                 }
              });
         console.log("fetched user successfully");
-        setUser(response.data); 
+        setUser(response.data.user); 
+    
         }
         else{
             setUser(null);
@@ -61,9 +62,11 @@ const login=async(credentials)=>{
     //Proceed with login request
     const response = await axios.post('http://127.0.0.1:8000/api/testLogin', credentials);
     setFlashMessage("logged in successfully");
-    console.log(response.data);
+    console.log(response.data.user);
     setUser(response.data.user);
+    console.log(response.data.user.role);
     localStorage.setItem('authToken', response.data.token); 
+   
    
 };
 
