@@ -8,10 +8,10 @@ const DashboardPage=()=>{
   const url=process.env.REACT_APP_BACKEND_URL;
   const navigate=useNavigate();
   const {user}=useContext(AuthContext);
-  console.log(user);
+  console.log("user"+user);
   const token=localStorage.getItem('authToken');
   useEffect(() => {
-    if (!token || user.role=='customer') {
+    if (!token ) {
       
       navigate("/");
     }

@@ -3,10 +3,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import OrderSummary from '../components/OrderSummary';
 import { BagContext } from '../components/contexts/BagContext';
+import AuthContext from '../components/contexts/AuthContext';
 
 const BagPage = () => {
   const HOST = process.env.REACT_APP_BACKEND_URL;
   const { bag, updateQuantity, removeFromBag } = useContext(BagContext);
+  const {user}=useContext(AuthContext);
+  console.log("user:"+user);
   
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">

@@ -13,18 +13,21 @@ const key=process.env.REACT_APP_STRIPE_SECRET;
 const stripePromise = loadStripe(key);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    <AuthProvider>
   <SearchProvider>
   <BagProvider>
-<AuthProvider>
+
     <React.StrictMode>
     <Elements stripe={stripePromise}>
     <App />
     </Elements>
   </React.StrictMode>
-  </AuthProvider>
+
  
   </BagProvider>
   </SearchProvider>
+   </AuthProvider>
+   
 );
 
 // If you want to start measuring performance in your app, pass a function
