@@ -4,14 +4,15 @@ import axios from "axios";
 const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
-    const[token,setToken]=useState(null);
+    const[token,setToken]=useState(localStorage.getItem('authToken'));
+
     const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
     useEffect(()=>{
     const fetchUser=async(e)=>{
     try{
         
-        const token=localStorage.getItem('authToken');
+        
       
         if(token){
             
@@ -38,7 +39,7 @@ export  const AuthProvider=({children})=>{
     }
     };
     fetchUser();
-},[]);
+},[token]);
 //Register request
 const register=async(credentials)=>{
     try{
@@ -66,6 +67,7 @@ const login=async(credentials)=>{
     setUser(response.data.user);
     console.log(response.data.user.role);
     localStorage.setItem('authToken', response.data.token); 
+    setToken(response.data.token);
    
    
 };
