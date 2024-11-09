@@ -7,16 +7,19 @@ const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
   const navigate=useNavigate();
-  const {user}=useContext(AuthContext);
+  const {user,loading}=useContext(AuthContext);
   const [token]=useState(localStorage.getItem('authToken'));
   console.log("user"+user);
   useEffect(() => {
     // Redirect if user is not an admin
   
-    if (user && user.role !== "admin") {
+      if (!loading && user && user.role !== "admin") {
         navigate("/");
-    }
-}, [user, navigate]);
+    } 
+  
+    
+  
+}, [user, loading,navigate]);
 useEffect(()=>{
   console.log("user NEW EFFECT:"+user);
 },[user]);

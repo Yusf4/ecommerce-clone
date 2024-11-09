@@ -4,7 +4,7 @@ import axios from "axios";
 const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
-    const[token,setToken]=useState(null);
+    const[token,setToken]=useState(localStorage.getItem('authToken'));
     const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
     useEffect(() => {
@@ -51,6 +51,7 @@ const login=async(credentials)=>{
     setUser(response.data.user);
     console.log(response.data.user.role);
     console.log("user state:"+user);
+    setToken(response.data.token);
     localStorage.setItem('authToken', response.data.token); 
    
    
@@ -67,11 +68,12 @@ const logout= async ()=>{
     });
     setFlashMessage("Goodbye");
     setUser(null);
+    setToken(null);
     localStorage.removeItem('authToken');
     console.log("logout successfully");
 };
 return (
-    <AuthContext.Provider value={{user,token,login,logout,setFlashMessage,flashMessage}}>
+    <AuthContext.Provider value={{user,token,loading,login,logout,setFlashMessage,flashMessage}}>
         {children}
     </AuthContext.Provider>
 );
