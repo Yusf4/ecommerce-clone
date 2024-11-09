@@ -4,54 +4,38 @@ import axios from "axios";
 const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
-    const[token,setToken]=useState(localStorage.getItem('authToken'));
-
+    const[token,setToken]=useState(null);
     const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
-    useEffect(()=>{
-    const fetchUser=async(e)=>{
-    try{
-        
-        
-      
-        if(token){
-            
-             const response=await axios.get('http://127.0.0.1:8000/api/user',{
-                headers:{
-               Authorization:`Bearer ${token}`,  
-                }
-             });
-        console.log("fetched user successfully");
-        setUser(response.data.user); 
-    
-        }
-        else{
-            setUser(null);
-        }
-      
-    }
-    catch(error){
-        setUser(null);
-  console.error("fetching user failed",error);
-    }
-    finally{
-        setLoading(false);
-    }
-    };
-    fetchUser();
-},[token]);
-//Register request
-const register=async(credentials)=>{
-    try{
-       const response=await axios.post('http://127.0.0.1:8000/api/register');  
-    }
-    catch(error){
-        console.error("registration")
-    }
- 
-  
-}
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem("authToken");
 
+            if (token) {
+                try {
+                    const response = await axios.get("http://127.0.0.1:8000/api/user", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    setUser(response.data.user); // Set user data
+                } catch (error) {
+                    console.error("Failed to fetch user:", error);
+                    setUser(null);
+                }
+            } else {
+                setUser(null);
+            }
+
+            setLoading(false); // Loading is complete
+        };
+
+        fetchUser();
+    }, []);
+
+useEffect(()=>{
+    console.log("user effect:"+user)
+},[user]);
 
 
 
@@ -63,11 +47,11 @@ const login=async(credentials)=>{
     //Proceed with login request
     const response = await axios.post('http://127.0.0.1:8000/api/testLogin', credentials);
     setFlashMessage("logged in successfully");
-    console.log(response.data.user);
+
     setUser(response.data.user);
     console.log(response.data.user.role);
+    console.log("user state:"+user);
     localStorage.setItem('authToken', response.data.token); 
-    setToken(response.data.token);
    
    
 };

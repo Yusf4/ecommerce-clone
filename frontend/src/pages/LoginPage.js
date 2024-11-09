@@ -29,6 +29,7 @@ const LoginPage = () => {
     try {
    
     await login(credentials);
+    console.log("login user:"+user);
     console.log("logged in successfully");
     } catch (error) {
       setErrorMessage(`Account doesn't exist,please check your credentials`);
