@@ -7,35 +7,22 @@ const DashboardPage=()=>{
   const [users,setUsers]=useState([]);
   const url=process.env.REACT_APP_BACKEND_URL;
   const navigate=useNavigate();
-  const {user,loading}=useContext(AuthContext);
+  const {user}=useContext(AuthContext);
   const [token]=useState(localStorage.getItem('authToken'));
   console.log("user"+user);
   useEffect(() => {
     // Redirect if user is not an admin
   
-      if (!loading && user && user.role !== "admin") {
+      if (!user || (user && user.role !== "admin")) {
         navigate("/");
     } 
   
     
   
-}, [user, loading,navigate]);
-useEffect(()=>{
-  console.log("user NEW EFFECT:"+user);
-},[user]);
+}, [user, navigate]);
 
-/*if (!user) {
-    // Optionally show a loading spinner or message if user data is still loading
-    return <p>Loading...</p>;
-}*/
-  /*useEffect(() => {
-   
-    console.log(user);
-    if (!token  || !user ) {
-      navigate("/");
-    }
-  }, [user,token, navigate]);
-  */
+
+
   const DeleteUser=async(userId)=>{
    const response=await axios.post(`${url}api/delete`,{
     id:userId

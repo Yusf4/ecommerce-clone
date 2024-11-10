@@ -9,6 +9,7 @@ const Header = () => {
   const url = process.env.REACT_APP_BACKEND_URL;
   const icon = `${url}images/shoppingBag.svg`;
   const { user } = useContext(AuthContext);
+  const token=localStorage.getItem('authToken');
   const { items } = useContext(BagContext);
   const [categories, setCategories] = useState([]);
   const { setQuery } = useContext(SearchContext);
@@ -18,6 +19,8 @@ const Header = () => {
   const toggleDropdown = () => setDropdownState(!dropdownState);
 
   useEffect(() => {
+    console.log("token:"+token);
+    console.log("user:"+user);
     const getCategories = async () => {
       try {
         const response = await axios.get(`${url}api/categories`);

@@ -5,7 +5,6 @@ const AuthContext=createContext();
 export  const AuthProvider=({children})=>{
     const[user,setUser]=useState(null);
     const[token,setToken]=useState(localStorage.getItem('authToken'));
-    const[loading,setLoading]=useState(true);
     const [flashMessage,setFlashMessage]=useState('');
     useEffect(() => {
         const fetchUser = async () => {
@@ -18,7 +17,8 @@ export  const AuthProvider=({children})=>{
                             Authorization: `Bearer ${token}`
                         }
                     });
-                    setUser(response.data.user); // Set user data
+                    //console.log("fetching user test:"+response.data.email);
+                    setUser(response.data); // Set user data
                 } catch (error) {
                     console.error("Failed to fetch user:", error);
                     setUser(null);
@@ -27,19 +27,14 @@ export  const AuthProvider=({children})=>{
                 setUser(null);
             }
 
-            setLoading(false); // Loading is complete
         };
 
         fetchUser();
     }, []);
 
-useEffect(()=>{
-    console.log("user effect:"+user)
-},[user]);
 
 
 
-//login request
 
 const login=async(credentials)=>{
     
@@ -47,10 +42,7 @@ const login=async(credentials)=>{
     //Proceed with login request
     const response = await axios.post('http://127.0.0.1:8000/api/testLogin', credentials);
     setFlashMessage("logged in successfully");
-
     setUser(response.data.user);
-    console.log(response.data.user.role);
-    console.log("user state:"+user);
     setToken(response.data.token);
     localStorage.setItem('authToken', response.data.token); 
    
@@ -70,10 +62,9 @@ const logout= async ()=>{
     setUser(null);
     setToken(null);
     localStorage.removeItem('authToken');
-    console.log("logout successfully");
 };
 return (
-    <AuthContext.Provider value={{user,token,loading,login,logout,setFlashMessage,flashMessage}}>
+    <AuthContext.Provider value={{user,token,login,logout,setFlashMessage,flashMessage}}>
         {children}
     </AuthContext.Provider>
 );
