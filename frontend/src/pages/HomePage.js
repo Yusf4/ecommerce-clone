@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import AuthContext from '../components/contexts/AuthContext';
 import { SearchContext } from '../components/contexts/SearchContext';
+import { motion } from 'framer-motion';
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -39,7 +40,7 @@ const HomePage = () => {
         }
     }, [flashMessage, setFlashMessage]);
 
-    const getFlashMessageStyle = () => {
+   const getFlashMessageStyle = () => {
         if (user) {
             // User is logged in
             return {
@@ -52,50 +53,76 @@ const HomePage = () => {
             };
         }
     };
-  
     return (
-        <div>
+        <div className="bg-gradient-to-r from-purple-100 via-blue-100 to-purple-100 min-h-screen">
             <Header />
-            <main>
-            {flashMessage && (
-                    <div
-                        className={`flash-message fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-md text-white text-sm flex items-center animate-flash`}
-                        style={{
-                            ...getFlashMessageStyle(),
-                            maxWidth: '250px',
-                            zIndex: 1000,
-                        }}
+            <main className="px-4 md:px-16 lg:px-32 py-12">
+                <section className="hero text-center py-12">
+                    <motion.h1
+                        className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-blue-500 mb-4"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <div className="flex-grow">
-                            <strong>{user ? 'Success:' : 'Error:'} </strong>
-                            <span>{flashMessage}</span>
-                        </div>
-                        <button
-                            onClick={() => setFlashMessage('')}
-                            className="text-lg ml-4 focus:outline-none"
-                            aria-label="Close"
-                        >
-                            &times;
-                        </button>
-                    </div>
-                )}
-                <section className='hero text-center py-8'>
-                    <h1 className='text-4xl font-bold'>Welcome to our Ecommerce site</h1>
-                    <p className='mt-4 text-lg'>Find your favorite products at great prices!</p>
-                </section>
-                <section className='featured-products py-8'>
-                    <h2 className='text-3xl font-semibold mb-6'>Featured Products</h2>
-                    <div className="product-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {filteredProducts.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
+                        Welcome to our E-commerce Site
+                    </motion.h1>
+                    <motion.p
+                        className="mt-4 text-lg text-gray-800"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                    >
+                        Find your favorite products at great prices!
+                    </motion.p>
                 </section>
                 
+                <section className="featured-products py-12">
+                    <motion.h2
+                        className="text-4xl font-semibold text-gray-900 mb-8"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
+                    >
+                        Featured Products
+                    </motion.h2>
+                    
+                    <motion.div
+                        className="product-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: {
+                                opacity: 1,
+                                transition: {
+                                    delayChildren: 0.3,
+                                    staggerChildren: 0.2,
+                                },
+                            },
+                        }}
+                    >
+                        {filteredProducts.map((product) => (
+                            <motion.div
+                                key={product.id}
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0 },
+                                }}
+                                whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)" }}
+                                className="transform transition-all duration-300"
+                            >
+                                <ProductCard product={product} />
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </section>
             </main>
             <Footer />
         </div>
     );
 };
+
+
+
 
 export default HomePage;
