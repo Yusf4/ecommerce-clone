@@ -84,9 +84,12 @@ const Header = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <nav className="container mx-auto flex justify-between items-center py-4 px-6">
         
-        {/* Left-side logo and categories */}
+ 
         <div className="flex items-center space-x-6">
-          <Link to="/" className="text-3xl font-bold text-gray-800">
+          <Link
+            to="/"
+            className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-500 animate-pulse font-mono"
+          >
             Eshop
           </Link>
 
