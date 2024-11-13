@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,11 +9,11 @@ import { motion } from 'framer-motion';
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
-    
-    const {query}=useContext(SearchContext);
-    const{user,setFlashMessage,flashMessage}=useContext(AuthContext);
-    const[filteredProducts,setFilteredProducts]=useState([]);
-    const url=process.env.REACT_APP_BACKEND_URL;
+    const { query } = useContext(SearchContext);
+    const { user, setFlashMessage, flashMessage } = useContext(AuthContext);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const url = process.env.REACT_APP_BACKEND_URL;
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -26,12 +26,13 @@ const HomePage = () => {
         };
         fetchProducts();
     }, [url]);
-    useEffect(()=>{
-        const filtered=products.filter(product=>(
-    product.name.toLowerCase().includes(query.toLowerCase())
-   ));
-   setFilteredProducts(filtered);  
-    },[query,products])
+
+    useEffect(() => {
+        const filtered = products.filter(product =>
+            product.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredProducts(filtered);
+    }, [query, products]);
 
     useEffect(() => {
         if (flashMessage) {
@@ -40,22 +41,36 @@ const HomePage = () => {
         }
     }, [flashMessage, setFlashMessage]);
 
-   const getFlashMessageStyle = () => {
+    const getFlashMessageStyle = () => {
         if (user) {
-            // User is logged in
             return {
-                backgroundColor: '#10b981', // Tailwind's 'green-500'
+                backgroundColor: '#10b981', // Green for logged-in
             };
         } else {
-            // User is logged out
             return {
-                backgroundColor: '#ef4444', // Tailwind's 'red-500'
+                backgroundColor: '#ef4444', // Red for logged-out
             };
         }
     };
+
     return (
         <div className="bg-gradient-to-r from-purple-100 via-blue-100 to-purple-100 min-h-screen">
             <Header />
+
+            {/* Flash Message */}
+            {flashMessage && (
+                <motion.div
+                    className="flash-message text-white text-center py-3 mb-4 rounded"
+                    style={getFlashMessageStyle()}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {flashMessage}
+                </motion.div>
+            )}
+
             <main className="px-4 md:px-16 lg:px-32 py-12">
                 <section className="hero text-center py-12">
                     <motion.h1
@@ -75,7 +90,7 @@ const HomePage = () => {
                         Find your favorite products at great prices!
                     </motion.p>
                 </section>
-                
+
                 <section className="featured-products py-12">
                     <motion.h2
                         className="text-4xl font-semibold text-gray-900 mb-8"
@@ -85,7 +100,7 @@ const HomePage = () => {
                     >
                         Featured Products
                     </motion.h2>
-                    
+
                     <motion.div
                         className="product-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
                         initial="hidden"
@@ -121,8 +136,5 @@ const HomePage = () => {
         </div>
     );
 };
-
-
-
 
 export default HomePage;
