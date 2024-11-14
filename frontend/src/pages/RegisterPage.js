@@ -1,7 +1,9 @@
 import axios from "axios";
 import {useContext,useState} from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import AuthContext from "../components/contexts/AuthContext";
 const RegisterPage=()=>{
     const HOST=process.env.REACT_APP_BACKEND_URL;
     console.log(`${HOST}api/register`);
@@ -9,7 +11,8 @@ const RegisterPage=()=>{
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
     const [errorMessage,setErrorMessage]=useState('');
-    
+    const navigate=useNavigate();
+    const {login}=useContext(AuthContext);
     const handleSubmit=async(e)=>{
         setErrorMessage('');
         e.preventDefault();
@@ -20,10 +23,26 @@ const RegisterPage=()=>{
             email,
             password
            });
+
+          
+         
+          await new Promise(resolve => setTimeout(resolve, 500));
+           try{
+
+           await login({email,password});
            setEmail("");
            setName("");
            setPassword("");
+           navigate('/');
            console.log("register successfully",response.data);
+           }
+           catch(error){
+            setErrorMessage('Account created,login failed try again with login Page');
+            console.error("login failed",error);
+
+           }
+   
+         
         }
         catch(error){
             setErrorMessage("Account already exists with this email. ")
