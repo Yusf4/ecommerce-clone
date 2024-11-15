@@ -11,8 +11,7 @@ const ProductPage=()=>{
      
     const { id }=useParams();
     const[product, setProduct]=useState(null);
-   /* console.log("bag:" ,bag);
-     console.log("addtoBag",addToBag)*/
+  
     useEffect(()=>{
         const fetchProduct=async()=>{
             try{
