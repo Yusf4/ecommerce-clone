@@ -26,11 +26,18 @@ const ProductCard = ({ product }) => {
          {/* <p className="text-gray-900 font-bold text-base">${product.price}</p>*/} 
         </div>
       </Link>
-
+     
       {/* Add to Bag button */}
-      <div className="absolute bottom-2 left-2 right-2">
-        <Addbutton product={product} addToBag={addToBag} isProductPage={false} />
+      {product.stock>0 ? (
+   <div className="absolute bottom-2 left-2 right-2">
+   <Addbutton product={product} addToBag={addToBag} isProductPage={false} />
+ </div>
+      ):(
+        <div className="absolute bottom-2 left-2 right-2">
+        <span className="block text-center text-red-500 font-bold">Out of Stock</span>
       </div>
+      )}
+   
     </div>
   );
 };

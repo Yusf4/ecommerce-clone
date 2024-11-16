@@ -14,9 +14,10 @@ class OrderController extends Controller
 
     public function createOrder(Request $request){
         
-    
-           
+     
+           DB::beginTransaction();
           
+          try{
             $order=Order::create([
             'user_id'=>Auth::id(),
            'address_id'=>$request->address_id,
@@ -26,17 +27,36 @@ class OrderController extends Controller
       
         foreach($request->bag as $item){
             $product=Product::find($item['product']['id']);
+            
             if($product){
+               if($product->stock<$item['quantity']){
+                    DB::rollback();
+                    return response()->json([
+                        'message'=>"insufficient stock for product:{$product->name}"
+                    ],400);
+                }
                $order->products()->attach($product->id,[
                 'quantity'=>$item['quantity'],
                 'price'=>$product->price,
-            ]);  
+            ]); 
+            $product->stock-=$item['quantity'];
+              $product->save();
             }
            
         }
         return response()->json(['order_id'=>$order->id]);
-    
- 
+        DB::commit();
+        return response()->json(['order_id'=>$order->id]);
+            }
+            catch (\Exception $e) {
+                // Rollback transaction in case of any error
+                DB::rollBack();
+        
+                return response()->json([
+                    'message' => 'Failed to create order',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
     }
     /**
      * Display a listing of the resource.
