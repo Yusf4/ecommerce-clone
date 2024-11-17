@@ -28,5 +28,10 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->dropForeign(['product_id']); // Adjust the column name as needed
+        });
+    
+        Schema::dropIfExists('order_product');
     }
 };

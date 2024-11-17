@@ -10,8 +10,8 @@ const CategoryPage = () => {
     const { name, id } = useParams();
     const [products, setProducts] = useState([]);
     const url = process.env.REACT_APP_BACKEND_URL;
-    const fullU = `${url}api/categories/${id}`;
-
+  const fullU = `${url}api/categories/${id}`;
+//console.log("fullU:"+fullU);
     useEffect(() => {
         const fetchCategory = async () => {
             try {
