@@ -29,9 +29,10 @@ return new class extends Migration
     {
         //
         Schema::table('order_product', function (Blueprint $table) {
-            $table->dropForeign(['product_id']); // Adjust the column name as needed
+            $table->dropForeign(['order_id']);
+            $table->dropForeign(['product_id']);
         });
-    
+
         Schema::dropIfExists('order_product');
     }
 };
