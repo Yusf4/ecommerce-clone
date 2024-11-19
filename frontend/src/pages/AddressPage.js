@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import OrderSummary from '../components/OrderSummary';
 import axios from 'axios';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import OrderSummary from '../components/OrderSummary';
 import { BagContext } from '../components/contexts/BagContext';
 const AddressPage = () => {
   const[addressLine1,setAddressLine1]=useState('');
