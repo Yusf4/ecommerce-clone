@@ -13,52 +13,69 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-    public function createOrder(Request $request){
-        
-     
-           DB::beginTransaction();
-          
-          try{
-            $order=Order::create([
-            'user_id'=>Auth::id(),
-           'address_id'=>$request->address_id,
-            'total'=>$request->totalPrice,
-            'status'=>'pending',
-        ]); 
-      
-        foreach($request->bag as $item){
-            $product=Product::find($item['product']['id']);
-            
-            if($product){
-               if($product->stock<$item['quantity']){
-                    DB::rollback();
-                    return response()->json([
-                        'message'=>"insufficient stock for product:{$product->name}"
-                    ],400);
-                }
-               $order->products()->attach($product->id,[
-                'quantity'=>$item['quantity'],
-                'price'=>$product->price,
-            ]); 
-            $product->stock-=$item['quantity'];
-              $product->save();
-            }
-           
-        }
-        return response()->json(['order_id'=>$order->id]);
-        DB::commit();
-        return response()->json(['order_id'=>$order->id]);
-            }
-            catch (\Exception $e) {
-                // Rollback transaction in case of any error
+
+public function createOrder(Request $request)
+{
+    // Validate the incoming request
+    $validated = $request->validate([
+        'address_id' => 'required|exists:addresses,id',
+        'totalPrice' => 'required|numeric|min:0',
+        'bag' => 'required|array',
+        'bag.*.product.id' => 'required|exists:products,id',
+        'bag.*.quantity' => 'required|integer|min:1',
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        // Create the order
+        $order = Order::create([
+            'user_id' => Auth::id(),
+            'address_id' => $validated['address_id'],
+            'total' => $validated['totalPrice'],
+            'status' => 'pending',
+        ]);
+
+        // Process the bag items
+        foreach ($validated['bag'] as $item) {
+            $product = Product::find($item['product']['id']);
+
+            if ($product->stock < $item['quantity']) {
                 DB::rollBack();
-        
                 return response()->json([
-                    'message' => 'Failed to create order',
-                    'error' => $e->getMessage(),
-                ], 500);
+                    'message' => "Insufficient stock for product: {$product->name}"
+                ], 400);
             }
+
+            // Attach product to order with quantity and price
+            $order->products()->attach($product->id, [
+                'quantity' => $item['quantity'],
+                'price' => $product->price,
+            ]);
+
+            // Update product stock
+            $product->stock -= $item['quantity'];
+            $product->save();
+        }
+
+        // Commit the transaction
+        DB::commit();
+
+        // Return the created order ID
+        return response()->json(['order_id' => $order->id], 201);
+
+    } catch (\Exception $e) {
+        // Rollback transaction in case of error
+        DB::rollBack();
+
+        return response()->json([
+            'message' => 'Failed to create order',
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
+
+    
     /**
      * Display a listing of the resource.
      */
