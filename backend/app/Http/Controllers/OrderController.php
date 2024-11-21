@@ -58,14 +58,12 @@ public function createOrder(Request $request)
             $product->save();
         }
 
-        // Commit the transaction
+   
         DB::commit();
 
-        // Return the created order ID
         return response()->json(['order_id' => $order->id], 201);
 
     } catch (\Exception $e) {
-        // Rollback transaction in case of error
         DB::rollBack();
 
         return response()->json([
