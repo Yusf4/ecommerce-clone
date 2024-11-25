@@ -16,9 +16,11 @@ import AddressPage from './pages/AddressPage';
 import OrderPage from './components/OrderPage';
 import AboutUsPage from './pages/AboutUsPage';
 import PrivateRoute from './pages/PrivateRoute';
+import TermsPage from './pages/TermsPage';
 import StrapiTesting from './pages/StrapiTesting';
 import DashboardPage from './pages/DashboardPage';
 import UserOrderPage from './pages/UserOrderPage';
+import PrivacyPage from './pages/PrivacyPage';
 function App() {
   
   const [flashMessage,setFlashMessage]=useState('');
@@ -42,6 +44,8 @@ function App() {
       <Route path="/dashboard" element={<DashboardPage/>}/>
       <Route path="/dashboard/orders/:id" element={<UserOrderPage/>}/>
       <Route path="/about" element={<AboutUsPage/>}/>
+      <Route path="/terms" element={<TermsPage/>}/>
+      <Route path="/privacy" element={<PrivacyPage/>}/>
     </Routes>
    </Router>
   );
