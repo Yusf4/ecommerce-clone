@@ -17,7 +17,10 @@ const OrderSummary = () => {
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-semibold">Order Summary</h3>
-      <ul className="space-y-2">
+      {bag.length>0 ?(
+          <>
+            <ul className="space-y-2">
+        
         {bag.map((item, index) => (
           <li key={index} className="flex items-center">
             <img
@@ -44,6 +47,13 @@ const OrderSummary = () => {
       </Link>
      
      
+          </>
+        ):(
+          <div className="text-gray-600 text-center">
+          Your bag is empty. Add some items to proceed.
+        </div>
+        )}
+    
     </div>
   );
 };
